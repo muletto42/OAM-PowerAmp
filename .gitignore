@@ -16,3 +16,7 @@ lib/OGM-HardwareConfig
 **.knxprod
 **./*.knxprod
 
+src/OAM_PowerAmp.debug.xml
+src/OAM_PowerAmp.appl.debug.xml
+src/OAM_PowerAmp.debug.xml
+src/OAM_PowerAmp.debug.xml

@@ -7,11 +7,11 @@
   <op:config name="%DFA_NumChannels%"        value="2" /> 
   <op:config name="%LOG_NumChannels%"        value="10" />
   <op:config name="%SWA_NumChannels%"        value="2" /> 
-  <op:config name="%AMP_NumChannels%"   value="2" />
+  <op:config name="%AMP_NumChannels%"        value="2" />
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.5"
+    ApplicationVersion="0.1"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"
@@ -35,6 +35,15 @@
     noConfigTransfer="true"
     ModuleType="99">
     <op:verify File="../../OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
+  </op:define>
+
+  <op:define prefix="AMP" 
+    share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
+    template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
+    NumChannels="%AMP_NumChannels%"
+    KoSingleOffset="20"
+    KoOffset="1500"
+    ModuleType="99">
   </op:define>
 
 <!-- 
@@ -86,16 +95,6 @@
     ModuleType="40">
     <op:verify File="../lib/OFM-SwitchActuator/library.json" ModuleVersion="%SWA_VerifyVersion%" />
   </op:define> -->
-
-  <op:define prefix="AMP" 
-    share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
-    template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
-    NumChannels="%AMP_NumChannels%"
-    KoSingleOffset="20"
-    KoOffset="1500"
-    ModuleType="99">
-  </op:define>
-
  
 
  <generate />

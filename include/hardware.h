@@ -53,19 +53,19 @@
     // Serial1 is UART0 --> KNX
     // Serial2 is UART1 --> frei
 
-    #define OPENKNX_PowerAmp_CHANNEL_COUNT 2
+    #define OPENKNX_AMP_CHANNEL_COUNT 2
 
-    #if OPENKNX_PowerAmp_CHANNEL_COUNT > 0
+    #if OPENKNX_AMP_CHANNEL_COUNT > 0
         // Der erste UART ist immer ein HardwareUART
-        #define PowerAmp_HARDWARE_SERIAL Serial2 // Serial2 = UART1
+        #define AMP_HARDWARE_SERIAL Serial2 // Serial2 = UART1
         #define HW_UART_TX_PIN	8      // UART1 TX mit Amp RX verbinden //GP8
         #define HW_UART_RX_PIN	9      // UART1 RX mit Amp TX verbinden //GP9
         // alternative Pins
         // #define HW_UART_TX_PIN	4      // UART1 TX mit Amp RX verbinden //GP4 // 
         // #define HW_UART_RX_PIN 	5      // UART1 RX mit Amp TX verbinden //GP5 // 
     #endif
-    
-    #if OPENKNX_PowerAmp_CHANNEL_COUNT > 1 // dann noch einen Software Serial benutzen
+
+    #if OPENKNX_AMP_CHANNEL_COUNT > 1 // dann noch einen Software Serial benutzen
     // frei wählbare Pins für SoftwareSerial
     // noch mehr durch Komma trennen z.B. 4, 6
         #define OPENKNX_SWSERIAL_TXPINS 4
