@@ -1,1 +1,2 @@
-# OAM-UART-Amp
+"# OAM-PowerAmp" 
+Uart Anbindung von Arylic Up2Stream Amp - Multiroom Wireless Streaming Stereo Amplifier Board

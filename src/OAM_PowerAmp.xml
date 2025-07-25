@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+   
+  <op:config href="OAM_PowerAmp.conf.xml" />
+  
+
+  <op:config name="%DFA_NumChannels%"        value="2" /> 
+  <op:config name="%LOG_NumChannels%"        value="10" />
+  <op:config name="%SWA_NumChannels%"        value="2" /> 
+  <op:config name="%AMP_NumChannels%"   value="2" />
+
+  <op:ETS OpenKnxId="0xAF"
+    ApplicationNumber="42"
+    ApplicationVersion="0.5"
+    ReplacesVersions="0.0"
+    ApplicationRevision="0"
+    ProductName="PowerAmp"
+    ApplicationName="PowerAmp"
+    BuildSuffix="-dev"
+    BuildSuffixText=" (dev)"
+    OrderNumber="PowerAmp"
+  />
+
+  <!-- 
+  KOs [1,20[
+  -->
+  <op:define prefix="BASE" ModuleType="10"
+    share="../lib/OGM-Common/src/Common.share.xml">
+    <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="%BASE_VerifyVersion%" />
+  </op:define>
+
+<!-- no KOs -->
+  <op:define prefix="UCT"
+    share="../../OFM-ConfigTransfer/src/ConfigTransfer.share.xml"
+    noConfigTransfer="true"
+    ModuleType="99">
+    <op:verify File="../../OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
+  </op:define>
+
+<!-- 
+  30 KOs / Channel
+  => 2Channels*30KOs=60 KOs
+  => [30,60[
+  -->
+  <!-- <op:define prefix="DFA"
+             share="../lib/OFM-DFA/src/DfaModule.share.xml"
+             template="../lib/OFM-DFA/src/DfaModule.templ.xml"
+             NumChannels="%DFA_NumChannels%"
+             KoOffset="30"
+             ModuleType="20" >
+    <op:verify File="../lib/OFM-DFA/library.json" ModuleVersion="%DFA_VerifyVersion%" />
+  </op:define> -->
+  <!-- 
+  KOs [60,990[ reserved for Channels 3..32
+  -->
+
+  <!--
+  3 KOs / Channel
+  => 10Channels*3KOs=30 KOs
+  => [1000,1030[
+  -->
+  <op:define prefix="LOG"
+             share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
+             template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
+             NumChannels="%LOG_NumChannels%"
+             KoOffset="1000" 
+             ModuleType="30" >
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" />
+  </op:define>
+
+  <!-- 
+  KOs [1030,1300[ reserved for other LOG Channels
+  -->
+
+     <!--
+  3 KOs / Channel
+  => 10Channels*3KOs=30 KOs
+  => [1300,1030[
+  -->
+  <!-- <op:define prefix="SWA"
+    share="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.share.xml"
+    template="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.templ.xml"
+    NumChannels="%SWA_NumChannels%"
+    KoSingleOffset="20"
+    KoOffset="1300"
+    ModuleType="40">
+    <op:verify File="../lib/OFM-SwitchActuator/library.json" ModuleVersion="%SWA_VerifyVersion%" />
+  </op:define> -->
+
+  <op:define prefix="AMP" 
+    share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
+    template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
+    NumChannels="%AMP_NumChannels%"
+    KoSingleOffset="20"
+    KoOffset="1500"
+    ModuleType="99">
+  </op:define>
+
+ 
+
+ <generate />
+</KNX>
