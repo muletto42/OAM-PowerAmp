@@ -5,13 +5,13 @@
   
 
   <op:config name="%DFA_NumChannels%"        value="2" /> 
-  <op:config name="%LOG_NumChannels%"        value="2" />
+  <op:config name="%LOG_NumChannels%"        value="10" />
   <op:config name="%SWA_NumChannels%"        value="2" /> 
   <op:config name="%AMP_NumChannels%"        value="2" />
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.2"
+    ApplicationVersion="0.1"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"
@@ -37,64 +37,68 @@
     <op:verify File="../../OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
   </op:define>
 
+<!-- aktuell
+  16 KOs / Channel
+  => 2Channels*16KOs=32 KOs
+  => [30,70[ -->
   <op:define prefix="AMP" 
     share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
     template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
     NumChannels="%AMP_NumChannels%"
-    KoSingleOffset="120"
-    KoOffset="1500"
+    KoSingleOffset="20"
+    KoOffset="30"
     ModuleType="99">
   </op:define>
 
-<!-- 
-  30 KOs / Channel
-  => 2Channels*30KOs=60 KOs
-  => [30,60[
+    <!--
+  5 KOs / Channel
+  => 2Channels*5KOs=10 KOs
+  => [100,1010[
   -->
-<!-- <op:define prefix="DFA"
-             share="../lib/OFM-DFA/src/DfaModule.share.xml"
-             template="../lib/OFM-DFA/src/DfaModule.templ.xml"
-             NumChannels="%DFA_NumChannels%"
-             KoOffset="30"
-             ModuleType="20" >
-    <op:verify File="../lib/OFM-DFA/library.json" ModuleVersion="%DFA_VerifyVersion%" />
-  </op:define> -->
-  <!-- 
-  KOs [60,990[ reserved for Channels 3..32
-  -->
+ <op:define prefix="SWA"
+    share="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.share.xml"
+    template="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.templ.xml"
+    NumChannels="%SWA_NumChannels%"
+    KoSingleOffset="10"
+    KoOffset="100"
+    ModuleType="40">
+    <op:verify File="../lib/OFM-SwitchActuator/library.json" ModuleVersion="%SWA_VerifyVersion%" />
+  </op:define>
 
   <!--
   3 KOs / Channel
   => 10Channels*3KOs=30 KOs
-  => [1000,1030[
+  => [150,180[
   -->
   <op:define prefix="LOG"
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
              NumChannels="%LOG_NumChannels%"
-             KoOffset="1000" 
-             ModuleType="30" >
+             KoOffset="150" 
+             ModuleType="50" >
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" />
   </op:define>
-
   <!-- 
-  KOs [1030,1300[ reserved for other LOG Channels
+  KOs [180,300[ reserved for other LOG Channels
   -->
 
-     <!--
-  3 KOs / Channel
-  => 10Channels*3KOs=30 KOs
-  => [1300,1030[
+<!-- 
+  30 KOs / Channel
+  => 2Channels*30KOs=60 KOs
+  => [300,360[
   -->
- <!-- <op:define prefix="SWA"
-    share="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.share.xml"
-    template="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.templ.xml"
-    NumChannels="%SWA_NumChannels%"
-    KoSingleOffset="20"
-    KoOffset="1300"
-    ModuleType="40">
-    <op:verify File="../lib/OFM-SwitchActuator/library.json" ModuleVersion="%SWA_VerifyVersion%" />
+<!-- <op:define prefix="DFA"
+             share="../lib/OFM-DFA/src/DfaModule.share.xml"
+             template="../lib/OFM-DFA/src/DfaModule.templ.xml"
+             NumChannels="%DFA_NumChannels%"
+             KoOffset="300"
+             ModuleType="60" >
+    <op:verify File="../lib/OFM-DFA/library.json" ModuleVersion="%DFA_VerifyVersion%" />
   </op:define> -->
+  <!-- 
+  KOs [360,..[ reserved for Channels 3..32
+  -->
+
 
 
  <generate />

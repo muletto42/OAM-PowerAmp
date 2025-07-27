@@ -21,10 +21,6 @@
 			"path": "../OFM-FileTransferModule"
 		},
 		{
-			"name": "OFM-GPIOModule",
-			"path": "../OFM-GPIOModule"
-		},
-		{
 			"name": "OFM-LogicModule",
 			"path": "../OFM-LogicModule"
 		},
