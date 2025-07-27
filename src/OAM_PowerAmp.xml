@@ -5,13 +5,13 @@
   
 
   <op:config name="%DFA_NumChannels%"        value="2" /> 
-  <op:config name="%LOG_NumChannels%"        value="10" />
+  <op:config name="%LOG_NumChannels%"        value="2" />
   <op:config name="%SWA_NumChannels%"        value="2" /> 
   <op:config name="%AMP_NumChannels%"        value="2" />
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.1"
+    ApplicationVersion="0.2"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"
@@ -41,7 +41,7 @@
     share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
     template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
     NumChannels="%AMP_NumChannels%"
-    KoSingleOffset="20"
+    KoSingleOffset="120"
     KoOffset="1500"
     ModuleType="99">
   </op:define>
@@ -51,7 +51,7 @@
   => 2Channels*30KOs=60 KOs
   => [30,60[
   -->
-  <!-- <op:define prefix="DFA"
+<!-- <op:define prefix="DFA"
              share="../lib/OFM-DFA/src/DfaModule.share.xml"
              template="../lib/OFM-DFA/src/DfaModule.templ.xml"
              NumChannels="%DFA_NumChannels%"
@@ -73,7 +73,7 @@
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
              NumChannels="%LOG_NumChannels%"
              KoOffset="1000" 
-             ModuleType="20" >
+             ModuleType="30" >
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" />
   </op:define>
 

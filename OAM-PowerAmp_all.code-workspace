@@ -1,0 +1,75 @@
+{
+	"folders": [
+		{
+			"name": "OAM-PowerAmp",
+			"path": "."
+		},
+		{
+			"name": "knx",
+			"path": "../knx"
+		},
+		{
+			"name": "OFM-DFA",
+			"path": "../OFM-DFA"
+		},
+		{
+			"name": "OFM-ConfigTransfer",
+			"path": "../OFM-ConfigTransfer"
+		},
+		{
+			"name": "OFM-FileTransferModule",
+			"path": "../OFM-FileTransferModule"
+		},
+		{
+			"name": "OFM-GPIOModule",
+			"path": "../OFM-GPIOModule"
+		},
+		{
+			"name": "OFM-LogicModule",
+			"path": "../OFM-LogicModule"
+		},
+		{
+			"name": "OFM-PowerAmp",
+			"path": "../OFM-PowerAmp"
+		},
+		{
+			"name": "OFM-SwitchActuator",
+			"path": "../OFM-SwitchActuator"
+		},
+		{
+			"name": "OFM-UsbExchange",
+			"path": "../OFM-UsbExchange"
+		},
+		{
+			"name": "OGM-Common",
+			"path": "../OGM-Common"
+		},
+		{
+			"name": "OGM-HardwareConfig",
+			"path": "../OGM-HardwareConfig"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"array": "cpp",
+			"format": "cpp",
+			"future": "cpp",
+			"istream": "cpp",
+			"memory": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"variant": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"xutility": "cpp",
+			"functional": "cpp",
+			"chrono": "cpp",
+			"optional": "cpp",
+			"regex": "cpp",
+			"system_error": "cpp"
+		}
+	}
+}

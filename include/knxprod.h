@@ -10,9 +10,9 @@
                                              
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 1
-#define MAIN_ParameterSize 3977
-#define MAIN_MaxKoNumber 1541
+#define MAIN_ApplicationVersion 2
+#define MAIN_ParameterSize 3297
+#define MAIN_MaxKoNumber 1569
 #define MAIN_OrderNumber "PowerAmp"
 #define BASE_ModuleVersion 20
 #define UCT_ModuleVersion 4
@@ -209,7 +209,7 @@
 
 // Communication objects per channel (multiple occurrence)
 #define AMP_KoBlockOffset 1500
-#define AMP_KoBlockSize 12
+#define AMP_KoBlockSize 16
 
 #define AMP_KoCalcNumber(index) (index + AMP_KoBlockOffset + _channelIndex * AMP_KoBlockSize)
 #define AMP_KoCalcIndex(number) ((number >= AMP_KoCalcNumber(0) && number < AMP_KoCalcNumber(AMP_KoBlockSize)) ? (number - AMP_KoBlockOffset) % AMP_KoBlockSize : -1)
@@ -227,6 +227,10 @@
 #define AMP_KoDayNight 27
 #define AMP_KoScene 28
 #define AMP_KoLock 29
+#define AMP_KoChsongMetadataTitle 50
+#define AMP_KoChsongMetadataAlbum 51
+#define AMP_KoChsongMetadataArtist 52
+#define AMP_KoChsongMetadataVendor 53
 
 // Lautstärke Amp %Z%
 #define KoAMP_volume_value                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_value)))
@@ -252,6 +256,14 @@
 #define KoAMP_Scene                               (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoScene)))
 // Zentral
 #define KoAMP_Lock                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoLock)))
+// 
+#define KoAMP_ChsongMetadataTitle                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataTitle)))
+// 
+#define KoAMP_ChsongMetadataAlbum                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataAlbum)))
+// 
+#define KoAMP_ChsongMetadataArtist                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataArtist)))
+// 
+#define KoAMP_ChsongMetadataVendor                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataVendor)))
 
 #define LOG_BuzzerInstalled                     113      // 1 Bit, Bit 7
 #define     LOG_BuzzerInstalledMask 0x80
@@ -734,7 +746,7 @@
 // Buzzer sperren
 #define KoLOG_BuzzerLock                          (knx.getGroupObject(LOG_KoBuzzerLock))
 
-#define LOG_ChannelCount 10
+#define LOG_ChannelCount 2
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 3127
@@ -2602,7 +2614,7 @@
 #define BASE_KommentarModuleModuleParamSize 0
 #define BASE_KommentarModuleSubmodulesParamSize 0
 #define BASE_KommentarModuleParamSize 0
-#define BASE_KommentarModuleParamOffset 3977
+#define BASE_KommentarModuleParamOffset 3297
 #define BASE_KommentarModuleCalcIndex(index, m1) (index + BASE_KommentarModuleParamOffset + _channelIndex * BASE_KommentarModuleCount * BASE_KommentarModuleParamSize + m1 * BASE_KommentarModuleParamSize)
 
 
