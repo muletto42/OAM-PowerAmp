@@ -45,8 +45,8 @@
     share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
     template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
     NumChannels="%AMP_NumChannels%"
-    KoSingleOffset="20"
-    KoOffset="30"
+    KoSingleOffset="10"
+    KoOffset="25"
     ModuleType="99">
   </op:define>
 
