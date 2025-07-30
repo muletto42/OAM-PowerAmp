@@ -274,7 +274,7 @@
 // Verfügbare Kanäle
 #define ParamSWA_VisibleChannels                     (knx.paramByte(SWA_VisibleChannels))
 
-#define SWA_KoCentralFunction 10
+#define SWA_KoCentralFunction 100
 
 // Zentralfunktion
 #define KoSWA_CentralFunction                     (knx.getGroupObject(SWA_KoCentralFunction))
@@ -528,10 +528,10 @@
 #define ParamSWA_ChSceneHNumber                      (knx.paramByte(SWA_ParamCalcIndex(SWA_ChSceneHNumber)))
 
 // deprecated
-#define SWA_KoOffset 100
+#define SWA_KoOffset 120
 
 // Communication objects per channel (multiple occurrence)
-#define SWA_KoBlockOffset 100
+#define SWA_KoBlockOffset 120
 #define SWA_KoBlockSize 6
 
 #define SWA_KoCalcNumber(index) (index + SWA_KoBlockOffset + _channelIndex * SWA_KoBlockSize)

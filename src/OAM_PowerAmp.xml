@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
   <KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
    
+  <!--
+    KoSingleOffset="20"   das sind die aus .share.xml 
+    KoOffset="25"  >  das sind die aus .templ.xml 
+    Beide sind komplett unabhängig voneinander. Man kann also dumme Dinge tun - aufpassen!
+  -->
+
   <op:config href="OAM_PowerAmp.conf.xml" />
   
 
@@ -45,8 +51,8 @@
     share="../lib/OFM-PowerAmp/src/PowerAmp.share.xml"
     template="../lib/OFM-PowerAmp/src/PowerAmp.templ.xml"
     NumChannels="%AMP_NumChannels%"
-    KoSingleOffset="10"
-    KoOffset="25"
+    KoSingleOffset="20" 
+    KoOffset="25" 
     ModuleType="99">
   </op:define>
 
@@ -59,8 +65,8 @@
     share="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.share.xml"
     template="../lib/OFM-SwitchActuator/src/SwitchActuatorModule.templ.xml"
     NumChannels="%SWA_NumChannels%"
-    KoSingleOffset="10"
-    KoOffset="100"
+    KoSingleOffset="100"
+    KoOffset="120"
     ModuleType="40">
     <op:verify File="../lib/OFM-SwitchActuator/library.json" ModuleVersion="%SWA_VerifyVersion%" />
   </op:define>
