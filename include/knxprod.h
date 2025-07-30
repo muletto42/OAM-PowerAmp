@@ -225,14 +225,14 @@
 #define AMP_KoStop 7
 #define AMP_KoNext 8
 #define AMP_KoPrev 9
-#define AMP_KoDayNight 27
-#define AMP_KoScene 28
-#define AMP_KoLock 29
-#define AMP_KoChsongMetadataTitle 50
-#define AMP_KoChsongMetadataAlbum 51
-#define AMP_KoChsongMetadataArtist 52
-#define AMP_KoChsongMetadataVendor 53
-#define AMP_Kovolume_Status 54
+#define AMP_KoDayNight 10
+#define AMP_KoScene 11
+#define AMP_KoLock 12
+#define AMP_KoChsongMetadataTitle 13
+#define AMP_KoChsongMetadataAlbum 14
+#define AMP_KoChsongMetadataArtist 15
+#define AMP_KoChsongMetadataVendor 16
+#define AMP_Kovolume_Status 17
 
 // Lautstärke Amp %Z%
 #define KoAMP_volume_value                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_value)))
