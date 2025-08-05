@@ -10,7 +10,7 @@
                                              
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 1
+#define MAIN_ApplicationVersion 3
 #define MAIN_ParameterSize 4126
 #define MAIN_MaxKoNumber 179
 #define MAIN_OrderNumber "PowerAmp"

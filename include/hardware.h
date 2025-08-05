@@ -1,13 +1,13 @@
-#ifdef BOARD_PowerAmp_PiPicoBCU
+#ifdef BOARD_POWERAMP_PiPicoBCU
 
     #define DEVICE_ID "PowerAmp_V0_PiPicoBCU"
 
     #define PROG_LED_PIN 21
     #define PROG_LED_PIN_ACTIVE_ON HIGH
     #define PROG_BUTTON_PIN 22
-    #define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
     #define SAVE_INTERRUPT_PIN 20
     #define KNX_SERIAL Serial1
+    #define KNX_UART_NUM 0
     #define KNX_UART_RX_PIN 1
     #define KNX_UART_TX_PIN 0
 
