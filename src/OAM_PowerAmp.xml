@@ -9,15 +9,14 @@
 
   <op:config href="OAM_PowerAmp.conf.xml" />
   
-
-  <!-- <op:config name="%DFA_NumChannels%"        value="2" /> 
-  <op:config name="%LOG_NumChannels%"        value="10" /> -->
+  <op:config name="%DFA_NumChannels%"        value="2" />
+  <op:config name="%LOG_NumChannels%"        value="10" /> 
   <op:config name="%SWA_NumChannels%"        value="2" /> 
-  <op:config name="%AMP_NumChannels%"        value="1" />
+  <op:config name="%AMP_NumChannels%"        value="2" />
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.4"
+    ApplicationVersion="0.1"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"
@@ -36,12 +35,12 @@
   </op:define>
 
 <!-- no KOs -->
-  <!-- <op:define prefix="UCT"
+  <op:define prefix="UCT"
     share="../../OFM-ConfigTransfer/src/ConfigTransfer.share.xml"
     noConfigTransfer="true"
     ModuleType="19">
     <op:verify File="../../OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
-  </op:define> -->
+  </op:define>
 
 <!-- aktuell
   16 KOs / Channel
@@ -76,14 +75,14 @@
   => 10Channels*3KOs=30 KOs
   => [150,180[
   -->
-  <!-- <op:define prefix="LOG"
+  <op:define prefix="LOG"
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
              NumChannels="%LOG_NumChannels%"
              KoOffset="150" 
              ModuleType="50" >
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" />
-  </op:define> -->
+  </op:define>
   <!-- 
   KOs [180,300[ reserved for other LOG Channels
   -->
