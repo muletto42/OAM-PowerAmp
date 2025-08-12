@@ -16,7 +16,7 @@
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.1"
+    ApplicationVersion="0.2"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"
@@ -103,8 +103,6 @@
   <!-- 
   KOs [360,..[ reserved for Channels 3..32
   -->
-
-
 
  <generate />
 </KNX>

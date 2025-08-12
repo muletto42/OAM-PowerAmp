@@ -10,7 +10,7 @@
                                              
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 1
+#define MAIN_ApplicationVersion 2
 #define MAIN_ParameterSize 4138
 #define MAIN_MaxKoNumber 179
 #define MAIN_OrderNumber "PowerAmp"
@@ -195,7 +195,7 @@
 
 // Communication objects per channel (multiple occurrence)
 #define AMP_KoBlockOffset 25
-#define AMP_KoBlockSize 17
+#define AMP_KoBlockSize 18
 
 #define AMP_KoCalcNumber(index) (index + AMP_KoBlockOffset + _channelIndex * AMP_KoBlockSize)
 #define AMP_KoCalcIndex(number) ((number >= AMP_KoCalcNumber(0) && number < AMP_KoCalcNumber(AMP_KoBlockSize)) ? (number - AMP_KoBlockOffset) % AMP_KoBlockSize : -1)
@@ -218,6 +218,7 @@
 #define AMP_KoChsongMetadataArtist 15
 #define AMP_KoChsongMetadataVendor 16
 #define AMP_Kovolume_Status 17
+#define AMP_Kosource_Status 18
 
 // Lautstärke Amp %Z%
 #define KoAMP_volume_value                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_value)))
@@ -243,16 +244,18 @@
 #define KoAMP_Scene                               (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoScene)))
 // Lock %Z%
 #define KoAMP_Lock                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoLock)))
-// 
+// Title Amp %Z%
 #define KoAMP_ChsongMetadataTitle                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataTitle)))
-// 
+// Album Amp %Z%
 #define KoAMP_ChsongMetadataAlbum                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataAlbum)))
-// 
+// Artist Amp %Z%
 #define KoAMP_ChsongMetadataArtist                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataArtist)))
-// 
+// Vendor Amp %Z%
 #define KoAMP_ChsongMetadataVendor                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataVendor)))
 // Lautstärke Status Amp %Z%
 #define KoAMP_volume_Status                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_Status)))
+// Quelle Status Amp %Z%
+#define KoAMP_source_Status                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kosource_Status)))
 
 #define SWA_VisibleChannels                     125      // uint8_t
 

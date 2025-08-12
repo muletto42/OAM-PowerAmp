@@ -1,10 +1,10 @@
 
 #include "FileTransferModule.h"
 #include "PowerAmpModule.h"
-// #include "SwitchActuatorModule.h"
+#include "SwitchActuatorModule.h"
 
-// #include "UsbExchangeModule.h"
-// #include "Logic.h"
+#include "UsbExchangeModule.h"
+#include "Logic.h"
 // #include "DfaModule.h"
 
 
@@ -17,10 +17,10 @@ void setup()
 
     openknx.addModule(1, openknxPowerAmpModule);
     openknx.addModule(2, openknxFileTransferModule);
-    // openknx.addModule(3, openknxSwitchActuatorModule);
-    // openknx.addModule(4, openknxLogic);
+    openknx.addModule(3, openknxSwitchActuatorModule);
+    openknx.addModule(4, openknxLogic);
     // openknx.addModule(5, openknxDfaModule);
-    // openknx.addModule(9, openknxUsbExchangeModule);
+    openknx.addModule(9, openknxUsbExchangeModule);
 
     openknx.setup();
 }
