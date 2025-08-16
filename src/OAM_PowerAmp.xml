@@ -92,14 +92,15 @@
   => 2Channels*30KOs=60 KOs
   => [300,360[
   -->
-<!-- <op:define prefix="DFA"
+  <!-- DFA-Modul muss einstelligen ModulType verwenden (verwendet übergroßen Id-Space) -->
+  <op:define prefix="DFA"
              share="../lib/OFM-DFA/src/DfaModule.share.xml"
              template="../lib/OFM-DFA/src/DfaModule.templ.xml"
              NumChannels="%DFA_NumChannels%"
              KoOffset="300"
-             ModuleType="60" >
+             ModuleType="6">
     <op:verify File="../lib/OFM-DFA/library.json" ModuleVersion="%DFA_VerifyVersion%" />
-  </op:define> -->
+  </op:define>
   <!-- 
   KOs [360,..[ reserved for Channels 3..32
   -->
