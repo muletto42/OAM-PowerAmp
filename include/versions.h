@@ -1,21 +1,21 @@
 #pragma once
 
-#define MAIN_Version "b294856"
+#define MAIN_Version "28107c8"
 #define KNX_Version "2.2.0+4fb43ed"
 #define MODULE_FileTransferModule_Version "0.1.1+75e4c00"
 #define MODULE_FileTransferModule_Version_Major 0
 #define MODULE_FileTransferModule_Version_Minor 1
 #define MODULE_FileTransferModule_Version_Revision 1
 #define MODULE_FileTransferModule_ETS 1
-#define MODULE_Common_Version "1.4.0+db9223b"
+#define MODULE_Common_Version "1.4.3+b286293"
 #define MODULE_Common_Version_Major 1
 #define MODULE_Common_Version_Minor 4
-#define MODULE_Common_Version_Revision 0
+#define MODULE_Common_Version_Revision 3
 #define MODULE_Common_ETS 20
-#define MODULE_LogicModule_Version "3.7.0+3fbbcfd"
+#define MODULE_LogicModule_Version "3.7.1+1ba35cb"
 #define MODULE_LogicModule_Version_Major 3
 #define MODULE_LogicModule_Version_Minor 7
-#define MODULE_LogicModule_Version_Revision 0
+#define MODULE_LogicModule_Version_Revision 1
 #define MODULE_LogicModule_ETS 55
 #define MODULE_PowerAmp_Version "d70d57f"
 #define MODULE_SwitchActuator_Version "0.1.0+c35288a"
@@ -23,13 +23,13 @@
 #define MODULE_SwitchActuator_Version_Minor 1
 #define MODULE_SwitchActuator_Version_Revision 0
 #define MODULE_SwitchActuator_ETS 1
-#define MODULE_UsbExchange_Version "0.0.1+6e49286"
+#define MODULE_UsbExchange_Version "0.0.1+0411a9d"
 #define MODULE_UsbExchange_Version_Major 0
 #define MODULE_UsbExchange_Version_Minor 0
 #define MODULE_UsbExchange_Version_Revision 1
 #define MODULE_UsbExchange_ETS 0
-#define MODULE_DFA_Version "0.4.0+3553289"
+#define MODULE_DFA_Version "0.5.0+f70c92a"
 #define MODULE_DFA_Version_Major 0
-#define MODULE_DFA_Version_Minor 4
+#define MODULE_DFA_Version_Minor 5
 #define MODULE_DFA_Version_Revision 0
-#define MODULE_DFA_ETS 4
+#define MODULE_DFA_ETS 5

@@ -196,55 +196,57 @@
 
 // Communication objects per channel (multiple occurrence)
 #define AMP_KoBlockOffset 25
-#define AMP_KoBlockSize 18
+#define AMP_KoBlockSize 20
 
 #define AMP_KoCalcNumber(index) (index + AMP_KoBlockOffset + _channelIndex * AMP_KoBlockSize)
 #define AMP_KoCalcIndex(number) ((number >= AMP_KoCalcNumber(0) && number < AMP_KoCalcNumber(AMP_KoBlockSize)) ? (number - AMP_KoBlockOffset) % AMP_KoBlockSize : -1)
 #define AMP_KoCalcChannel(number) ((number >= AMP_KoBlockOffset && number < AMP_KoBlockOffset + AMP_ChannelCount * AMP_KoBlockSize) ? (number - AMP_KoBlockOffset) / AMP_KoBlockSize : -1)
 
-#define AMP_Kovolume_value 1
-#define AMP_Kovolume_inc 2
-#define AMP_Kovolume_dec 3
-#define AMP_Kosource 4
-#define AMP_Komute_onoff 5
-#define AMP_KoPlayPause 6
-#define AMP_KoStop 7
-#define AMP_KoNext 8
-#define AMP_KoPrev 9
-#define AMP_KoDayNight 10
-#define AMP_KoScene 11
-#define AMP_KoLock 12
+#define AMP_KoChvolume_value 1
+#define AMP_KoChvolume_inc 2
+#define AMP_KoChvolume_dec 3
+#define AMP_KoChsource 4
+#define AMP_KoChmute_onoff 5
+#define AMP_KoChPlayPause 6
+#define AMP_KoChStop 7
+#define AMP_KoChNext 8
+#define AMP_KoChPrev 9
+#define AMP_KoChDayNight 10
+#define AMP_KoChScene 11
+#define AMP_KoChLock 12
 #define AMP_KoChsongMetadataTitle 13
 #define AMP_KoChsongMetadataAlbum 14
 #define AMP_KoChsongMetadataArtist 15
 #define AMP_KoChsongMetadataVendor 16
-#define AMP_Kovolume_Status 17
-#define AMP_Kosource_Status 18
+#define AMP_KoChvolume_Status 17
+#define AMP_KoChsource_Status 18
+#define AMP_KoChmute_Status 19
+#define AMP_KoChElapsedTime 20
 
 // Lautstärke Amp %Z%
-#define KoAMP_volume_value                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_value)))
+#define KoAMP_Chvolume_value                      (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChvolume_value)))
 // Lautstärke Amp %Z%
-#define KoAMP_volume_inc                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_inc)))
+#define KoAMP_Chvolume_inc                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChvolume_inc)))
 // Lautstärke Amp %Z%
-#define KoAMP_volume_dec                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_dec)))
+#define KoAMP_Chvolume_dec                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChvolume_dec)))
 // Quelle Amp %Z%
-#define KoAMP_source                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kosource)))
+#define KoAMP_Chsource                            (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsource)))
 // Mute Amp %Z%
-#define KoAMP_mute_onoff                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_Komute_onoff)))
+#define KoAMP_Chmute_onoff                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChmute_onoff)))
 // Track Amp %Z%
-#define KoAMP_PlayPause                           (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoPlayPause)))
+#define KoAMP_ChPlayPause                         (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPlayPause)))
 // Track Amp %Z%
-#define KoAMP_Stop                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoStop)))
+#define KoAMP_ChStop                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChStop)))
 // Track Amp %Z%
-#define KoAMP_Next                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoNext)))
+#define KoAMP_ChNext                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChNext)))
 // Track Amp %Z%
-#define KoAMP_Prev                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoPrev)))
+#define KoAMP_ChPrev                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPrev)))
 // TagNacht %Z%
-#define KoAMP_DayNight                            (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoDayNight)))
+#define KoAMP_ChDayNight                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChDayNight)))
 // Szene %Z%
-#define KoAMP_Scene                               (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoScene)))
+#define KoAMP_ChScene                             (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChScene)))
 // Lock %Z%
-#define KoAMP_Lock                                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoLock)))
+#define KoAMP_ChLock                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChLock)))
 // Title Amp %Z%
 #define KoAMP_ChsongMetadataTitle                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataTitle)))
 // Album Amp %Z%
@@ -254,9 +256,13 @@
 // Vendor Amp %Z%
 #define KoAMP_ChsongMetadataVendor                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsongMetadataVendor)))
 // Lautstärke Status Amp %Z%
-#define KoAMP_volume_Status                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kovolume_Status)))
+#define KoAMP_Chvolume_Status                     (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChvolume_Status)))
 // Quelle Status Amp %Z%
-#define KoAMP_source_Status                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_Kosource_Status)))
+#define KoAMP_Chsource_Status                     (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChsource_Status)))
+// Mute Status Amp %Z%
+#define KoAMP_Chmute_Status                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChmute_Status)))
+// Elapsed Time Amp %Z%
+#define KoAMP_ChElapsedTime                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChElapsedTime)))
 
 #define SWA_VisibleChannels                     125      // uint8_t
 
