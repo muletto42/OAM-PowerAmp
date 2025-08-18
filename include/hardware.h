@@ -43,35 +43,36 @@
     // Serial2 is UART1 --> frei
 #endif
 
-#define OPENKNX_AMP_CHANNEL_COUNT 2
+#define OPENKNX_AMP_CHANNEL_COUNT 2 
 
-#if OPENKNX_AMP_CHANNEL_COUNT > 0
-    // Der erste UART ist immer ein HardwareUART
-    #define AMP_HARDWARE_SERIAL Serial2 // Serial2 = UART1
-    #define HW_UART_TX_PIN	8      // UART1 TX mit Amp RX verbinden //GP8
-    #define HW_UART_RX_PIN	9      // UART1 RX mit Amp TX verbinden //GP9
-    // alternative Pins
-    // #define HW_UART_TX_PIN	4      // UART1 TX mit Amp RX verbinden //GP4 // 
-    // #define HW_UART_RX_PIN 	5      // UART1 RX mit Amp TX verbinden //GP5 // 
-#endif
+// ein HardwareUART
+#define AMP_HW_SERIAL 2 // Serial2 // Serial2 = UART1
+#define AMP_HW_UART_TX_PIN	8      // UART1 TX mit Amp RX verbinden //GP8
+#define AMP_HW_UART_RX_PIN	9      // UART1 RX mit Amp TX verbinden //GP9
+/*
+// alternative Pins
+#define AMP_HW_UART_TX_PIN	4      // UART1 TX mit Amp RX verbinden //GP4 
+#define AMP_HW_UART_RX_PIN 	5      // UART1 RX mit Amp TX verbinden //GP5 
+*/
 
-#if OPENKNX_AMP_CHANNEL_COUNT > 1 // dann noch einen Software Serial benutzen
+// dann noch einen Software Serial benutzen
 // frei wählbare Pins für SoftwareSerial
-// noch mehr durch Komma trennen z.B. 4, 6
-    #define OPENKNX_SWSERIAL_TXPINS 4
-    #define OPENKNX_SWSERIAL_RXPINS 5
-#endif
+#define AMP_SWSERIAL_TXPINS 4
+#define AMP_SWSERIAL_RXPINS 5
+
 
 #define BAUD_ARLYIC 115200 // Baudrate für Arylic UART
 
-#if defined(HW_UART_TX_PIN) && defined(HW_UART_RX_PIN)
-    #if !((HW_UART_TX_PIN == 4) || (HW_UART_TX_PIN == 8) || (HW_UART_TX_PIN == 12) || (HW_UART_TX_PIN == 16) || (HW_UART_TX_PIN == 20))
-        #error "HW_UART_TX_PIN ist kein typischer UART1-TX-Pin auf dem RP2040!"
+#if defined(AMP_HW_UART_TX_PIN) && defined(AMP_HW_UART_RX_PIN)
+    #if !((AMP_HW_UART_TX_PIN == 4) || (AMP_HW_UART_TX_PIN == 8) || (AMP_HW_UART_TX_PIN == 12) || (AMP_HW_UART_TX_PIN == 16) || (AMP_HW_UART_TX_PIN == 20))
+        #error "AMP_HW_UART_TX_PIN ist kein typischer UART1-TX-Pin auf dem RP2040!"
     #endif
-    #if !((HW_UART_RX_PIN == 5) || (HW_UART_RX_PIN == 9) || (HW_UART_RX_PIN == 13) || (HW_UART_RX_PIN == 17) || (HW_UART_RX_PIN == 21))
-        #error "HW_UART_RX_PIN ist kein typischer UART1-RX-Pin auf dem RP2040!"
+    #if !((AMP_HW_UART_RX_PIN == 5) || (AMP_HW_UART_RX_PIN == 9) || (AMP_HW_UART_RX_PIN == 13) || (AMP_HW_UART_RX_PIN == 17) || (AMP_HW_UART_RX_PIN == 21))
+        #error "AMP_HW_UART_RX_PIN ist kein typischer UART1-RX-Pin auf dem RP2040!"
     #endif
 #endif
+
+
 
 #define OPENKNX_SWA_CHANNEL_COUNT 2
 #define OPENKNX_SWA_SET_PINS 3, 19  // GPIO3, GPIO19 // Es wird der GPIO angegeben, nicht der Pin 

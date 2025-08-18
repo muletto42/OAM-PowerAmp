@@ -7,7 +7,13 @@
 #include "Logic.h"
 #include "DfaModule.h"
 
-
+// RX, TX, isHardwareSerial, hwPort
+const uint8_t AMPchannelPins[][4] = 
+{
+    {AMP_HW_UART_RX_PIN, AMP_HW_UART_TX_PIN,  true, AMP_HW_SERIAL},   // Kanal 0 -> HardwareSerial
+    {AMP_SWSERIAL_RXPINS, AMP_SWSERIAL_TXPINS, false, 0}, // Kanal 1 -> SoftwareSerial
+ // weitere (Software-SerialPins)
+};
 
 void setup()
 {
@@ -22,7 +28,10 @@ void setup()
     openknx.addModule(5, openknxDfaModule);
     openknx.addModule(9, openknxUsbExchangeModule);
 
+    openknxPowerAmpModule.setSerialChannelPins(AMPchannelPins, 2);
     openknx.setup();
+
+    
 }
 
 void loop()
