@@ -22,7 +22,7 @@
 #define UCT_ModuleVersion 4
 #define SWA_ModuleVersion 1
 #define LOG_ModuleVersion 55
-#define DFA_ModuleVersion 5
+#define DFA_ModuleVersion 6
 // Parameter with single occurrence
 
 
@@ -6817,9 +6817,9 @@
 #define DFA_KoKOaDummy13 28
 #define DFA_KoKOaDummy14 29
 
-// Ausführen status
+// läuft?
 #define KoDFA_KOaRunning                          (knx.getGroupObject(DFA_KoCalcNumber(DFA_KoKOaRunning)))
-// Ausführen setzen
+// starten/pausieren
 #define KoDFA_KOaRunSet                           (knx.getGroupObject(DFA_KoCalcNumber(DFA_KoKOaRunSet)))
 // Zustand
 #define KoDFA_KOaState                            (knx.getGroupObject(DFA_KoCalcNumber(DFA_KoKOaState)))
