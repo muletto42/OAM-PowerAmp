@@ -16,7 +16,7 @@
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.5"
+    ApplicationVersion="0.7"
     ReplacesVersions="0.0"
     ApplicationRevision="0"
     ProductName="PowerAmp"  

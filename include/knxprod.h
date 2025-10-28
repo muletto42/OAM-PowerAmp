@@ -13,7 +13,7 @@
 #endif
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 5
+#define MAIN_ApplicationVersion 7
 #define MAIN_ApplicationEncoding iso-8859-15
 #define MAIN_ParameterSize 5742
 #define MAIN_MaxKoNumber 359
@@ -188,6 +188,10 @@
 #define     AMP_AliveCheckBoxMask 0x80
 #define     AMP_AliveCheckBoxShift 7
 #define AMP_LimitMaxVolume                      10      // uint8_t
+#define AMP_AutoPlay                            11      // 1 Bit, Bit 7
+#define     AMP_AutoPlayMask 0x80
+#define     AMP_AutoPlayShift 7
+#define AMP_Preset                              12      // uint8_t
 #define AMP_ChScene0                             5      // 8 Bits, Bit 7-0
 #define AMP_ChScene1                             6      // 8 Bits, Bit 7-0
 #define AMP_ChScene2                             7      // 8 Bits, Bit 7-0
@@ -240,6 +244,10 @@
 #define ParamAMP_AliveCheckBox                       ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AliveCheckBox)) & AMP_AliveCheckBoxMask))
 // 
 #define ParamAMP_LimitMaxVolume                      (knx.paramByte(AMP_ParamCalcIndex(AMP_LimitMaxVolume)))
+// AutoPlay
+#define ParamAMP_AutoPlay                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoPlay)) & AMP_AutoPlayMask))
+// Preset
+#define ParamAMP_Preset                              (knx.paramByte(AMP_ParamCalcIndex(AMP_Preset)))
 // Scene0
 #define ParamAMP_ChScene0                            (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScene0)))
 // Scene1
@@ -300,7 +308,7 @@
 
 // Communication objects per channel (multiple occurrence)
 #define AMP_KoBlockOffset 25
-#define AMP_KoBlockSize 22
+#define AMP_KoBlockSize 24
 
 #define AMP_KoCalcNumber(index) (index + AMP_KoBlockOffset + _channelIndex * AMP_KoBlockSize)
 #define AMP_KoCalcIndex(number) ((number >= AMP_KoCalcNumber(0) && number < AMP_KoCalcNumber(AMP_KoBlockSize)) ? (number - AMP_KoBlockOffset) % AMP_KoBlockSize : -1)
@@ -318,6 +326,7 @@
 #define AMP_KoChDayNight 10
 #define AMP_KoChScene 11
 #define AMP_KoChLock 12
+#define AMP_KoChPreset 24
 #define AMP_KoChSongMetadataTitle 13
 #define AMP_KoChSongMetadataAlbum 14
 #define AMP_KoChSongMetadataArtist 15
@@ -328,6 +337,7 @@
 #define AMP_KoChElapsedTime 20
 #define AMP_KoChPlayPauseStatus 21
 #define AMP_KoChAliveStatus 22
+#define AMP_KoChAutoPlayStatus 23
 
 // Lautstärke Amp %Z%
 #define KoAMP_ChVolumeValue                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChVolumeValue)))
@@ -353,6 +363,8 @@
 #define KoAMP_ChScene                             (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChScene)))
 // Lock %Z%
 #define KoAMP_ChLock                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChLock)))
+// Preset %Z%
+#define KoAMP_ChPreset                            (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPreset)))
 // Title Amp %Z%
 #define KoAMP_ChSongMetadataTitle                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongMetadataTitle)))
 // Album Amp %Z%
@@ -373,6 +385,8 @@
 #define KoAMP_ChPlayPauseStatus                   (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPlayPauseStatus)))
 // Alive Status Amp %Z%
 #define KoAMP_ChAliveStatus                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAliveStatus)))
+// AutoPlay Status Amp %Z%
+#define KoAMP_ChAutoPlayStatus                    (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAutoPlayStatus)))
 
 #define SWA_VisibleChannels                     281      // uint8_t
 
