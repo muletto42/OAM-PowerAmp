@@ -18,7 +18,7 @@
 #define MAIN_FirmwareName "PowerAmp(dev)"
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 2
+#define MAIN_ApplicationVersion 3
 #define MAIN_ApplicationEncoding iso-8859-15
 #define MAIN_ParameterSize 5896
 #define MAIN_MaxKoNumber 359
@@ -222,6 +222,9 @@
 #define     AMP_AutoPlayMask 0x80
 #define     AMP_AutoPlayShift 7
 #define AMP_Preset                              12      // uint8_t
+#define AMP_AutoMute                            14      // 1 Bit, Bit 7
+#define     AMP_AutoMuteMask 0x80
+#define     AMP_AutoMuteShift 7
 #define AMP_ChScene0                            13      // 8 Bits, Bit 7-0
 #define AMP_ChScene1                            14      // 8 Bits, Bit 7-0
 #define AMP_ChScene2                            15      // 8 Bits, Bit 7-0
@@ -278,6 +281,8 @@
 #define ParamAMP_AutoPlay                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoPlay)) & AMP_AutoPlayMask))
 // Preset
 #define ParamAMP_Preset                              (knx.paramByte(AMP_ParamCalcIndex(AMP_Preset)))
+// AutoMute bei Start
+#define ParamAMP_AutoMute                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoMute)) & AMP_AutoMuteMask))
 // Scene0
 #define ParamAMP_ChScene0                            (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScene0)))
 // Scene1
