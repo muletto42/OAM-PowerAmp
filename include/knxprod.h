@@ -18,15 +18,15 @@
 #define MAIN_FirmwareName "PowerAmp(dev)"
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 4
+#define MAIN_ApplicationVersion 1
 #define MAIN_ApplicationEncoding iso-8859-15
-#define MAIN_ParameterSize 5896
-#define MAIN_MaxKoNumber 359
+#define MAIN_ParameterSize 9781
+#define MAIN_MaxKoNumber 509
 #define MAIN_OrderNumber "PowerAmp"
-#define BASE_ModuleVersion 21
-#define UCT_ModuleVersion 4
+#define BASE_ModuleVersion 23
+#define UCT_ModuleVersion 5
 #define SWA_ModuleVersion 1
-#define LOG_ModuleVersion 56
+#define LOG_ModuleVersion 64
 #define DFA_ModuleVersion 7
 // Parameter with single occurrence
 
@@ -84,6 +84,12 @@
 #define     BASE_ManualSaveMask 0x07
 #define     BASE_ManualSaveShift 0
 #define BASE_PeriodicSave                        79      // 8 Bits, Bit 7-0
+#define BASE_Info1LedFunc                        80      // 16 Bits, Bit 15-0
+#define BASE_Info2LedFunc                        82      // 16 Bits, Bit 15-0
+#define BASE_Info3LedFunc                        84      // 16 Bits, Bit 15-0
+#define BASE_DefaultLedFunc                      86      // 1 Bit, Bit 7
+#define     BASE_DefaultLedFuncMask 0x80
+#define     BASE_DefaultLedFuncShift 7
 #define BASE_Dummy                               109      // uint8_t
 #define BASE_ModuleEnabled_UCT                   110      // 1 Bit, Bit 6
 #define     BASE_ModuleEnabled_UCTMask 0x40
@@ -146,6 +152,14 @@
 #define ParamBASE_ManualSave                          (knx.paramByte(BASE_ManualSave) & BASE_ManualSaveMask)
 // Zyklisches speichern
 #define ParamBASE_PeriodicSave                        (knx.paramByte(BASE_PeriodicSave))
+// Info1
+#define ParamBASE_Info1LedFunc                        (knx.paramWord(BASE_Info1LedFunc))
+// Info2
+#define ParamBASE_Info2LedFunc                        (knx.paramWord(BASE_Info2LedFunc))
+// Info3
+#define ParamBASE_Info3LedFunc                        (knx.paramWord(BASE_Info3LedFunc))
+// 
+#define ParamBASE_DefaultLedFunc                      ((bool)(knx.paramByte(BASE_DefaultLedFunc) & BASE_DefaultLedFuncMask))
 // 
 #define ParamBASE_Dummy                               (knx.paramByte(BASE_Dummy))
 // UCT
@@ -193,72 +207,102 @@
 
 // Parameter per channel
 #define AMP_ParamBlockOffset 115
-#define AMP_ParamBlockSize 93
+#define AMP_ParamBlockSize 54
 #define AMP_ParamCalcIndex(index) (index + AMP_ParamBlockOffset + _channelIndex * AMP_ParamBlockSize)
 
 #define AMP_ChActive                             0      // 2 Bits, Bit 7-6
 #define     AMP_ChActiveMask 0xC0
 #define     AMP_ChActiveShift 6
-#define AMP_ChScenesActive                       0      // 1 Bit, Bit 7
-#define     AMP_ChScenesActiveMask 0x80
-#define     AMP_ChScenesActiveShift 7
-#define AMP_Source                               1      // 8 Bits, Bit 7-0
-#define AMP_VolumeDay                            2      // uint8_t
-#define AMP_VolumeNight                          3      // uint8_t
-#define AMP_VolumeStepValue                      4      // uint8_t
-#define AMP_mute                                 5      // 1 Bit, Bit 7
-#define     AMP_muteMask 0x80
-#define     AMP_muteShift 7
-#define AMP_DayNight                             6      // 2 Bits, Bit 7-6
+#define AMP_ChScenesActive                       0      // 1 Bit, Bit 5
+#define     AMP_ChScenesActiveMask 0x20
+#define     AMP_ChScenesActiveShift 5
+#define AMP_mute                                 0      // 1 Bit, Bit 4
+#define     AMP_muteMask 0x10
+#define     AMP_muteShift 4
+#define AMP_AutoPlay                             0      // 1 Bit, Bit 3
+#define     AMP_AutoPlayMask 0x08
+#define     AMP_AutoPlayShift 3
+#define AMP_AutoMute                             0      // 1 Bit, Bit 2
+#define     AMP_AutoMuteMask 0x04
+#define     AMP_AutoMuteShift 2
+#define AMP_AliveCheckBox                        0      // 1 Bit, Bit 1
+#define     AMP_AliveCheckBoxMask 0x02
+#define     AMP_AliveCheckBoxShift 1
+#define AMP_DayNight                             1      // 2 Bits, Bit 7-6
 #define     AMP_DayNightMask 0xC0
 #define     AMP_DayNightShift 6
-#define AMP_Lock                                 7      // 2 Bits, Bit 7-6
-#define     AMP_LockMask 0xC0
-#define     AMP_LockShift 6
-#define AMP_AliveTimeInterval                    8      // uint8_t
-#define AMP_AliveCheckBox                        9      // 1 Bit, Bit 7
-#define     AMP_AliveCheckBoxMask 0x80
-#define     AMP_AliveCheckBoxShift 7
-#define AMP_LimitMaxVolume                      10      // uint8_t
-#define AMP_AutoPlay                            11      // 1 Bit, Bit 7
-#define     AMP_AutoPlayMask 0x80
-#define     AMP_AutoPlayShift 7
-#define AMP_Preset                              12      // uint8_t
-#define AMP_AutoMute                            14      // 1 Bit, Bit 7
-#define     AMP_AutoMuteMask 0x80
-#define     AMP_AutoMuteShift 7
-#define AMP_ChScene0                            13      // 8 Bits, Bit 7-0
-#define AMP_ChScene1                            14      // 8 Bits, Bit 7-0
-#define AMP_ChScene2                            15      // 8 Bits, Bit 7-0
-#define AMP_ChScene3                            16      // 8 Bits, Bit 7-0
-#define AMP_ChScene4                            17      // 8 Bits, Bit 7-0
-#define AMP_ChScene5                            18      // 8 Bits, Bit 7-0
-#define AMP_ChScene6                            19      // 8 Bits, Bit 7-0
-#define AMP_ChScene7                            20      // 8 Bits, Bit 7-0
-#define AMP_ChScene8                            21      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle0                      33      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle1                      34      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle2                      35      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle3                      36      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle4                      37      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle5                      38      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle6                      39      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle7                      40      // 8 Bits, Bit 7-0
-#define AMP_ChSceneQuelle8                      41      // 8 Bits, Bit 7-0
-#define AMP_ChSceneVolume0                      53      // uint8_t
-#define AMP_ChSceneVolume1                      54      // uint8_t
-#define AMP_ChSceneVolume2                      55      // uint8_t
-#define AMP_ChSceneVolume3                      56      // uint8_t
-#define AMP_ChSceneVolume4                      57      // uint8_t
-#define AMP_ChSceneVolume5                      58      // uint8_t
-#define AMP_ChSceneVolume6                      59      // uint8_t
-#define AMP_ChSceneVolume7                      60      // uint8_t
-#define AMP_ChSceneVolume8                      61      // uint8_t
+#define AMP_Lock                                 1      // 2 Bits, Bit 5-4
+#define     AMP_LockMask 0x30
+#define     AMP_LockShift 4
+#define AMP_Source                               2      // 8 Bits, Bit 7-0
+#define AMP_VolumeDay                            3      // uint8_t
+#define AMP_VolumeNight                          4      // uint8_t
+#define AMP_VolumeStepValue                      5      // uint8_t
+#define AMP_AliveTimeInterval                    6      // uint8_t
+#define AMP_LimitMaxVolume                       7      // uint8_t
+#define AMP_Preset                               8      // uint8_t
+#define AMP_ChScene0                             9      // 8 Bits, Bit 7-0
+#define AMP_ChScene1                            10      // 8 Bits, Bit 7-0
+#define AMP_ChScene2                            11      // 8 Bits, Bit 7-0
+#define AMP_ChScene3                            12      // 8 Bits, Bit 7-0
+#define AMP_ChScene4                            13      // 8 Bits, Bit 7-0
+#define AMP_ChScene5                            14      // 8 Bits, Bit 7-0
+#define AMP_ChScene6                            15      // 8 Bits, Bit 7-0
+#define AMP_ChScene7                            16      // 8 Bits, Bit 7-0
+#define AMP_ChScene8                            17      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle0                      18      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle1                      19      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle2                      20      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle3                      21      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle4                      22      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle5                      23      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle6                      24      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle7                      25      // 8 Bits, Bit 7-0
+#define AMP_ChSceneQuelle8                      26      // 8 Bits, Bit 7-0
+#define AMP_ChSceneVolume0                      27      // uint8_t
+#define AMP_ChSceneVolume1                      28      // uint8_t
+#define AMP_ChSceneVolume2                      29      // uint8_t
+#define AMP_ChSceneVolume3                      30      // uint8_t
+#define AMP_ChSceneVolume4                      31      // uint8_t
+#define AMP_ChSceneVolume5                      32      // uint8_t
+#define AMP_ChSceneVolume6                      33      // uint8_t
+#define AMP_ChSceneVolume7                      34      // uint8_t
+#define AMP_ChSceneVolume8                      35      // uint8_t
+#define AMP_ChSceneMute0                        36      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute1                        37      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute2                        38      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute3                        39      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute4                        40      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute5                        41      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute6                        42      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute7                        43      // 8 Bits, Bit 7-0
+#define AMP_ChSceneMute8                        44      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset0                      45      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset1                      46      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset2                      47      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset3                      48      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset4                      49      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset5                      50      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset6                      51      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset7                      52      // 8 Bits, Bit 7-0
+#define AMP_ChScenePreset8                      53      // 8 Bits, Bit 7-0
 
 // Kanalaktivität
 #define ParamAMP_ChActive                            ((knx.paramByte(AMP_ParamCalcIndex(AMP_ChActive)) & AMP_ChActiveMask) >> AMP_ChActiveShift)
 // Szenen aktivieren
 #define ParamAMP_ChScenesActive                      ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenesActive)) & AMP_ChScenesActiveMask))
+// Mute
+#define ParamAMP_mute                                ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_mute)) & AMP_muteMask))
+// AutoPlay
+#define ParamAMP_AutoPlay                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoPlay)) & AMP_AutoPlayMask))
+// AutoMute bei Start
+#define ParamAMP_AutoMute                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoMute)) & AMP_AutoMuteMask))
+// AliveEnable
+#define ParamAMP_AliveCheckBox                       ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AliveCheckBox)) & AMP_AliveCheckBoxMask))
+// Tag/Nacht-Objekt
+#define ParamAMP_DayNight                            ((knx.paramByte(AMP_ParamCalcIndex(AMP_DayNight)) & AMP_DayNightMask) >> AMP_DayNightShift)
+// Zentrale Sperre
+#define ParamAMP_Lock                                ((knx.paramByte(AMP_ParamCalcIndex(AMP_Lock)) & AMP_LockMask) >> AMP_LockShift)
 // Quelle
 #define ParamAMP_Source                              (knx.paramByte(AMP_ParamCalcIndex(AMP_Source)))
 // 
@@ -267,24 +311,12 @@
 #define ParamAMP_VolumeNight                         (knx.paramByte(AMP_ParamCalcIndex(AMP_VolumeNight)))
 // 
 #define ParamAMP_VolumeStepValue                     (knx.paramByte(AMP_ParamCalcIndex(AMP_VolumeStepValue)))
-// Mute
-#define ParamAMP_mute                                ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_mute)) & AMP_muteMask))
-// Tag/Nacht-Objekt
-#define ParamAMP_DayNight                            ((knx.paramByte(AMP_ParamCalcIndex(AMP_DayNight)) & AMP_DayNightMask) >> AMP_DayNightShift)
-// Zentrale Sperre
-#define ParamAMP_Lock                                ((knx.paramByte(AMP_ParamCalcIndex(AMP_Lock)) & AMP_LockMask) >> AMP_LockShift)
 // AliveTimeInterval
 #define ParamAMP_AliveTimeInterval                   (knx.paramByte(AMP_ParamCalcIndex(AMP_AliveTimeInterval)))
-// AliveEnable
-#define ParamAMP_AliveCheckBox                       ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AliveCheckBox)) & AMP_AliveCheckBoxMask))
 // 
 #define ParamAMP_LimitMaxVolume                      (knx.paramByte(AMP_ParamCalcIndex(AMP_LimitMaxVolume)))
-// AutoPlay
-#define ParamAMP_AutoPlay                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoPlay)) & AMP_AutoPlayMask))
 // Preset
 #define ParamAMP_Preset                              (knx.paramByte(AMP_ParamCalcIndex(AMP_Preset)))
-// AutoMute bei Start
-#define ParamAMP_AutoMute                            ((bool)(knx.paramByte(AMP_ParamCalcIndex(AMP_AutoMute)) & AMP_AutoMuteMask))
 // Scene0
 #define ParamAMP_ChScene0                            (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScene0)))
 // Scene1
@@ -339,13 +371,49 @@
 #define ParamAMP_ChSceneVolume7                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneVolume7)))
 // SceneVolume8
 #define ParamAMP_ChSceneVolume8                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneVolume8)))
+// SceneMute0
+#define ParamAMP_ChSceneMute0                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute0)))
+// SceneMute1
+#define ParamAMP_ChSceneMute1                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute1)))
+// SceneMute2
+#define ParamAMP_ChSceneMute2                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute2)))
+// SceneMute3
+#define ParamAMP_ChSceneMute3                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute3)))
+// SceneMute4
+#define ParamAMP_ChSceneMute4                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute4)))
+// SceneMute5
+#define ParamAMP_ChSceneMute5                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute5)))
+// SceneMute6
+#define ParamAMP_ChSceneMute6                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute6)))
+// SceneMute7
+#define ParamAMP_ChSceneMute7                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute7)))
+// SceneMute8
+#define ParamAMP_ChSceneMute8                        (knx.paramByte(AMP_ParamCalcIndex(AMP_ChSceneMute8)))
+// ScenePreset0
+#define ParamAMP_ChScenePreset0                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset0)))
+// ScenePreset1
+#define ParamAMP_ChScenePreset1                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset1)))
+// ScenePreset2
+#define ParamAMP_ChScenePreset2                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset2)))
+// ScenePreset3
+#define ParamAMP_ChScenePreset3                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset3)))
+// ScenePreset4
+#define ParamAMP_ChScenePreset4                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset4)))
+// ScenePreset5
+#define ParamAMP_ChScenePreset5                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset5)))
+// ScenePreset6
+#define ParamAMP_ChScenePreset6                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset6)))
+// ScenePreset7
+#define ParamAMP_ChScenePreset7                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset7)))
+// ScenePreset8
+#define ParamAMP_ChScenePreset8                      (knx.paramByte(AMP_ParamCalcIndex(AMP_ChScenePreset8)))
 
 // deprecated
 #define AMP_KoOffset 25
 
 // Communication objects per channel (multiple occurrence)
 #define AMP_KoBlockOffset 25
-#define AMP_KoBlockSize 26
+#define AMP_KoBlockSize 28
 
 #define AMP_KoCalcNumber(index) (index + AMP_KoBlockOffset + _channelIndex * AMP_KoBlockSize)
 #define AMP_KoCalcIndex(number) ((number >= AMP_KoCalcNumber(0) && number < AMP_KoCalcNumber(AMP_KoBlockSize)) ? (number - AMP_KoBlockOffset) % AMP_KoBlockSize : -1)
@@ -353,82 +421,88 @@
 
 #define AMP_KoChVolumeValue 1
 #define AMP_KoChVolumeStep 2
-#define AMP_KoChDUMMY 3
-#define AMP_KoChSource 4
-#define AMP_KoChMuteOnOff 5
-#define AMP_KoChPlayPause 6
-#define AMP_KoChStop 7
-#define AMP_KoChNext 8
-#define AMP_KoChPrev 9
-#define AMP_KoChDayNight 10
-#define AMP_KoChScene 11
-#define AMP_KoChLock 12
-#define AMP_KoChPreset 24
-#define AMP_KoChSongMetadataTitle 13
-#define AMP_KoChSongMetadataAlbum 14
-#define AMP_KoChSongMetadataArtist 15
-#define AMP_KoChSongMetadataVendor 16
-#define AMP_KoChVolumeStatus 17
-#define AMP_KoChSourceStatus 18
-#define AMP_KoChMuteStatus 19
-#define AMP_KoChElapsedTime 20
-#define AMP_KoChPlayPauseStatus 21
-#define AMP_KoChAliveStatus 22
-#define AMP_KoChAutoPlayStatus 23
-#define AMP_KoChAutoMuteStatus 25
+#define AMP_KoChSource 3
+#define AMP_KoChMuteOnOff 4
+#define AMP_KoChPlayPause 5
+#define AMP_KoChStop 6
+#define AMP_KoChNext 7
+#define AMP_KoChPrev 8
+#define AMP_KoChDayNight 9
+#define AMP_KoChScene 10
+#define AMP_KoChLock 11
+#define AMP_KoChAutoPlay 12
+#define AMP_KoChAutoMute 13
+#define AMP_KoChPreset 14
+#define AMP_KoChVolumeStatus 15
+#define AMP_KoChSourceStatus 16
+#define AMP_KoChMuteStatus 17
+#define AMP_KoChPlayingStatus 18
+#define AMP_KoChAliveStatus 19
+#define AMP_KoChAutoPlayStatus 20
+#define AMP_KoChAutoMuteStatus 21
+#define AMP_KoChPresetStatus 22
+#define AMP_KoChElapsedTime 23
+#define AMP_KoChSongTitle 24
+#define AMP_KoChSongArtist 25
+#define AMP_KoChSongAlbum 26
+#define AMP_KoChSongVendor 27
 
-// Lautstärke Amp %Z%
+// Lautstärke setzen %Z%
 #define KoAMP_ChVolumeValue                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChVolumeValue)))
-// Lautstärke Amp %Z%
+// Lautstärke Schritt %Z%
 #define KoAMP_ChVolumeStep                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChVolumeStep)))
-// EMPTY DUMMY Amp %Z%
-#define KoAMP_ChDUMMY                             (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChDUMMY)))
-// Quelle Amp %Z%
+// Quelle wählen %Z%
 #define KoAMP_ChSource                            (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSource)))
-// Mute Amp %Z%
+// Stumm schalten %Z%
 #define KoAMP_ChMuteOnOff                         (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChMuteOnOff)))
-// Track Amp %Z%
+// Play / Pause %Z%
 #define KoAMP_ChPlayPause                         (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPlayPause)))
-// Track Amp %Z%
+// Stop %Z%
 #define KoAMP_ChStop                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChStop)))
-// Track Amp %Z%
+// Nächster Titel %Z%
 #define KoAMP_ChNext                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChNext)))
-// Track Amp %Z%
+// Vorheriger Titel %Z%
 #define KoAMP_ChPrev                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPrev)))
-// TagNacht %Z%
+// Tag / Nacht %Z%
 #define KoAMP_ChDayNight                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChDayNight)))
 // Szene %Z%
 #define KoAMP_ChScene                             (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChScene)))
-// Lock %Z%
+// Sperre %Z%
 #define KoAMP_ChLock                              (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChLock)))
-// Preset %Z%
+// AutoPlay ein/aus %Z%
+#define KoAMP_ChAutoPlay                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAutoPlay)))
+// AutoMute ein/aus %Z%
+#define KoAMP_ChAutoMute                          (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAutoMute)))
+// Preset starten %Z%
 #define KoAMP_ChPreset                            (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPreset)))
-// Title Amp %Z%
-#define KoAMP_ChSongMetadataTitle                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongMetadataTitle)))
-// Album Amp %Z%
-#define KoAMP_ChSongMetadataAlbum                 (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongMetadataAlbum)))
-// Artist Amp %Z%
-#define KoAMP_ChSongMetadataArtist                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongMetadataArtist)))
-// Vendor Amp %Z%
-#define KoAMP_ChSongMetadataVendor                (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongMetadataVendor)))
-// Lautstärke Status Amp %Z%
+// Lautstärke aktuell %Z%
 #define KoAMP_ChVolumeStatus                      (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChVolumeStatus)))
-// Quelle Status Amp %Z%
+// Quelle aktuell %Z%
 #define KoAMP_ChSourceStatus                      (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSourceStatus)))
-// Mute Status Amp %Z%
+// Stumm aktiv %Z%
 #define KoAMP_ChMuteStatus                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChMuteStatus)))
-// Elapsed Time Amp %Z%
-#define KoAMP_ChElapsedTime                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChElapsedTime)))
-// PlayPause Status Amp %Z%
-#define KoAMP_ChPlayPauseStatus                   (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPlayPauseStatus)))
-// Alive Status Amp %Z%
+// Wiedergabe aktiv %Z%
+#define KoAMP_ChPlayingStatus                     (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPlayingStatus)))
+// Gerät erreichbar %Z%
 #define KoAMP_ChAliveStatus                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAliveStatus)))
-// AutoPlay Status Amp %Z%
+// AutoPlay aktiv %Z%
 #define KoAMP_ChAutoPlayStatus                    (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAutoPlayStatus)))
-// AutoMute Status Amp %Z%
+// AutoMute aktiv %Z%
 #define KoAMP_ChAutoMuteStatus                    (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChAutoMuteStatus)))
+// Aktiver Preset %Z%
+#define KoAMP_ChPresetStatus                      (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChPresetStatus)))
+// Spielzeit %Z%
+#define KoAMP_ChElapsedTime                       (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChElapsedTime)))
+// Titel %Z%
+#define KoAMP_ChSongTitle                         (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongTitle)))
+// Künstler %Z%
+#define KoAMP_ChSongArtist                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongArtist)))
+// Album %Z%
+#define KoAMP_ChSongAlbum                         (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongAlbum)))
+// Dienst / Quelle %Z%
+#define KoAMP_ChSongVendor                        (knx.getGroupObject(AMP_KoCalcNumber(AMP_KoChSongVendor)))
 
-#define SWA_VisibleChannels                     301      // uint8_t
+#define SWA_VisibleChannels                     223      // uint8_t
 
 // Verfügbare Kanäle
 #define ParamSWA_VisibleChannels                     (knx.paramByte(SWA_VisibleChannels))
@@ -441,7 +515,7 @@
 #define SWA_ChannelCount 2
 
 // Parameter per channel
-#define SWA_ParamBlockOffset 302
+#define SWA_ParamBlockOffset 224
 #define SWA_ParamBlockSize 74
 #define SWA_ParamCalcIndex(index) (index + SWA_ParamBlockOffset + _channelIndex * SWA_ParamBlockSize)
 
@@ -717,291 +791,277 @@
 // 
 #define KoSWA_ChScene                             (knx.getGroupObject(SWA_KoCalcNumber(SWA_KoChScene)))
 
-#define LOG_BuzzerInstalled                     450      // 1 Bit, Bit 7
-#define     LOG_BuzzerInstalledMask 0x80
-#define     LOG_BuzzerInstalledShift 7
-#define LOG_LedInstalled                        450      // 1 Bit, Bit 6
-#define     LOG_LedInstalledMask 0x40
-#define     LOG_LedInstalledShift 6
-#define LOG_VacationKo                          450      // 1 Bit, Bit 5
-#define     LOG_VacationKoMask 0x20
-#define     LOG_VacationKoShift 5
-#define LOG_HolidayKo                           450      // 1 Bit, Bit 4
-#define     LOG_HolidayKoMask 0x10
-#define     LOG_HolidayKoShift 4
-#define LOG_VacationRead                        450      // 1 Bit, Bit 3
-#define     LOG_VacationReadMask 0x08
-#define     LOG_VacationReadShift 3
-#define LOG_HolidaySend                         450      // 1 Bit, Bit 2
-#define     LOG_HolidaySendMask 0x04
-#define     LOG_HolidaySendShift 2
-#define LOG_Neujahr                             451      // 1 Bit, Bit 7
+#define LOG_VisibleChannels                     372      // uint8_t
+#define LOG_VacationKo                          373      // 1 Bit, Bit 7
+#define     LOG_VacationKoMask 0x80
+#define     LOG_VacationKoShift 7
+#define LOG_HolidayKo                           373      // 1 Bit, Bit 6
+#define     LOG_HolidayKoMask 0x40
+#define     LOG_HolidayKoShift 6
+#define LOG_VacationRead                        373      // 1 Bit, Bit 5
+#define     LOG_VacationReadMask 0x20
+#define     LOG_VacationReadShift 5
+#define LOG_HolidaySend                         373      // 1 Bit, Bit 4
+#define     LOG_HolidaySendMask 0x10
+#define     LOG_HolidaySendShift 4
+#define LOG_Neujahr                             374      // 1 Bit, Bit 7
 #define     LOG_NeujahrMask 0x80
 #define     LOG_NeujahrShift 7
-#define LOG_DreiKoenige                         451      // 1 Bit, Bit 6
+#define LOG_DreiKoenige                         374      // 1 Bit, Bit 6
 #define     LOG_DreiKoenigeMask 0x40
 #define     LOG_DreiKoenigeShift 6
-#define LOG_Weiberfastnacht                     451      // 1 Bit, Bit 5
+#define LOG_Weiberfastnacht                     374      // 1 Bit, Bit 5
 #define     LOG_WeiberfastnachtMask 0x20
 #define     LOG_WeiberfastnachtShift 5
-#define LOG_Rosenmontag                         451      // 1 Bit, Bit 4
+#define LOG_Rosenmontag                         374      // 1 Bit, Bit 4
 #define     LOG_RosenmontagMask 0x10
 #define     LOG_RosenmontagShift 4
-#define LOG_Fastnachtsdienstag                  451      // 1 Bit, Bit 3
+#define LOG_Fastnachtsdienstag                  374      // 1 Bit, Bit 3
 #define     LOG_FastnachtsdienstagMask 0x08
 #define     LOG_FastnachtsdienstagShift 3
-#define LOG_Aschermittwoch                      451      // 1 Bit, Bit 2
+#define LOG_Aschermittwoch                      374      // 1 Bit, Bit 2
 #define     LOG_AschermittwochMask 0x04
 #define     LOG_AschermittwochShift 2
-#define LOG_Frauentag                           451      // 1 Bit, Bit 1
+#define LOG_Frauentag                           374      // 1 Bit, Bit 1
 #define     LOG_FrauentagMask 0x02
 #define     LOG_FrauentagShift 1
-#define LOG_Gruendonnerstag                     451      // 1 Bit, Bit 0
+#define LOG_Gruendonnerstag                     374      // 1 Bit, Bit 0
 #define     LOG_GruendonnerstagMask 0x01
 #define     LOG_GruendonnerstagShift 0
-#define LOG_Karfreitag                          452      // 1 Bit, Bit 7
+#define LOG_Karfreitag                          375      // 1 Bit, Bit 7
 #define     LOG_KarfreitagMask 0x80
 #define     LOG_KarfreitagShift 7
-#define LOG_Ostersonntag                        452      // 1 Bit, Bit 6
+#define LOG_Ostersonntag                        375      // 1 Bit, Bit 6
 #define     LOG_OstersonntagMask 0x40
 #define     LOG_OstersonntagShift 6
-#define LOG_Ostermontag                         452      // 1 Bit, Bit 5
+#define LOG_Ostermontag                         375      // 1 Bit, Bit 5
 #define     LOG_OstermontagMask 0x20
 #define     LOG_OstermontagShift 5
-#define LOG_TagDerArbeit                        452      // 1 Bit, Bit 4
+#define LOG_TagDerArbeit                        375      // 1 Bit, Bit 4
 #define     LOG_TagDerArbeitMask 0x10
 #define     LOG_TagDerArbeitShift 4
-#define LOG_Himmelfahrt                         452      // 1 Bit, Bit 3
+#define LOG_Himmelfahrt                         375      // 1 Bit, Bit 3
 #define     LOG_HimmelfahrtMask 0x08
 #define     LOG_HimmelfahrtShift 3
-#define LOG_Pfingstsonntag                      452      // 1 Bit, Bit 2
+#define LOG_Pfingstsonntag                      375      // 1 Bit, Bit 2
 #define     LOG_PfingstsonntagMask 0x04
 #define     LOG_PfingstsonntagShift 2
-#define LOG_Pfingstmontag                       452      // 1 Bit, Bit 1
+#define LOG_Pfingstmontag                       375      // 1 Bit, Bit 1
 #define     LOG_PfingstmontagMask 0x02
 #define     LOG_PfingstmontagShift 1
-#define LOG_Fronleichnam                        452      // 1 Bit, Bit 0
+#define LOG_Fronleichnam                        375      // 1 Bit, Bit 0
 #define     LOG_FronleichnamMask 0x01
 #define     LOG_FronleichnamShift 0
-#define LOG_Friedensfest                        453      // 1 Bit, Bit 7
+#define LOG_Friedensfest                        376      // 1 Bit, Bit 7
 #define     LOG_FriedensfestMask 0x80
 #define     LOG_FriedensfestShift 7
-#define LOG_MariaHimmelfahrt                    453      // 1 Bit, Bit 6
+#define LOG_MariaHimmelfahrt                    376      // 1 Bit, Bit 6
 #define     LOG_MariaHimmelfahrtMask 0x40
 #define     LOG_MariaHimmelfahrtShift 6
-#define LOG_DeutscheEinheit                     453      // 1 Bit, Bit 5
+#define LOG_DeutscheEinheit                     376      // 1 Bit, Bit 5
 #define     LOG_DeutscheEinheitMask 0x20
 #define     LOG_DeutscheEinheitShift 5
-#define LOG_Reformationstag                     453      // 1 Bit, Bit 4
+#define LOG_Reformationstag                     376      // 1 Bit, Bit 4
 #define     LOG_ReformationstagMask 0x10
 #define     LOG_ReformationstagShift 4
-#define LOG_Allerheiligen                       453      // 1 Bit, Bit 3
+#define LOG_Allerheiligen                       376      // 1 Bit, Bit 3
 #define     LOG_AllerheiligenMask 0x08
 #define     LOG_AllerheiligenShift 3
-#define LOG_BussBettag                          453      // 1 Bit, Bit 2
+#define LOG_BussBettag                          376      // 1 Bit, Bit 2
 #define     LOG_BussBettagMask 0x04
 #define     LOG_BussBettagShift 2
-#define LOG_Advent1                             453      // 1 Bit, Bit 1
+#define LOG_Advent1                             376      // 1 Bit, Bit 1
 #define     LOG_Advent1Mask 0x02
 #define     LOG_Advent1Shift 1
-#define LOG_Advent2                             453      // 1 Bit, Bit 0
+#define LOG_Advent2                             376      // 1 Bit, Bit 0
 #define     LOG_Advent2Mask 0x01
 #define     LOG_Advent2Shift 0
-#define LOG_Advent3                             454      // 1 Bit, Bit 7
+#define LOG_Advent3                             377      // 1 Bit, Bit 7
 #define     LOG_Advent3Mask 0x80
 #define     LOG_Advent3Shift 7
-#define LOG_Advent4                             454      // 1 Bit, Bit 6
+#define LOG_Advent4                             377      // 1 Bit, Bit 6
 #define     LOG_Advent4Mask 0x40
 #define     LOG_Advent4Shift 6
-#define LOG_Heiligabend                         454      // 1 Bit, Bit 5
+#define LOG_Heiligabend                         377      // 1 Bit, Bit 5
 #define     LOG_HeiligabendMask 0x20
 #define     LOG_HeiligabendShift 5
-#define LOG_Weihnachtstag1                      454      // 1 Bit, Bit 4
+#define LOG_Weihnachtstag1                      377      // 1 Bit, Bit 4
 #define     LOG_Weihnachtstag1Mask 0x10
 #define     LOG_Weihnachtstag1Shift 4
-#define LOG_Weihnachtstag2                      454      // 1 Bit, Bit 3
+#define LOG_Weihnachtstag2                      377      // 1 Bit, Bit 3
 #define     LOG_Weihnachtstag2Mask 0x08
 #define     LOG_Weihnachtstag2Shift 3
-#define LOG_Silvester                           454      // 1 Bit, Bit 2
+#define LOG_Silvester                           377      // 1 Bit, Bit 2
 #define     LOG_SilvesterMask 0x04
 #define     LOG_SilvesterShift 2
-#define LOG_Nationalfeiertag                    454      // 1 Bit, Bit 1
+#define LOG_Nationalfeiertag                    377      // 1 Bit, Bit 1
 #define     LOG_NationalfeiertagMask 0x02
 #define     LOG_NationalfeiertagShift 1
-#define LOG_MariaEmpfaengnis                    454      // 1 Bit, Bit 0
+#define LOG_MariaEmpfaengnis                    377      // 1 Bit, Bit 0
 #define     LOG_MariaEmpfaengnisMask 0x01
 #define     LOG_MariaEmpfaengnisShift 0
-#define LOG_NationalfeiertagSchweiz             455      // 1 Bit, Bit 7
+#define LOG_NationalfeiertagSchweiz             378      // 1 Bit, Bit 7
 #define     LOG_NationalfeiertagSchweizMask 0x80
 #define     LOG_NationalfeiertagSchweizShift 7
-#define LOG_Totensonntag                        455      // 1 Bit, Bit 6
+#define LOG_Totensonntag                        378      // 1 Bit, Bit 6
 #define     LOG_TotensonntagMask 0x40
 #define     LOG_TotensonntagShift 6
-#define LOG_Weltkindertag                       455      // 1 Bit, Bit 5
+#define LOG_Weltkindertag                       378      // 1 Bit, Bit 5
 #define     LOG_WeltkindertagMask 0x20
 #define     LOG_WeltkindertagShift 5
-#define LOG_BuzzerSilent                        456      // uint16_t
-#define LOG_BuzzerNormal                        458      // uint16_t
-#define LOG_BuzzerLoud                          460      // uint16_t
-#define LOG_VisibleChannels                     462      // uint8_t
-#define LOG_LedMapping                          463      // 3 Bits, Bit 7-5
-#define     LOG_LedMappingMask 0xE0
-#define     LOG_LedMappingShift 5
-#define LOG_UserFormula1                        464      // char*, 99 Byte
+#define LOG_UserFormula1                        379      // char*, 99 Byte
 #define     LOG_UserFormula1Length 99
-#define LOG_UserFormula1Active                  563      // 1 Bit, Bit 7
+#define LOG_UserFormula1Active                  478      // 1 Bit, Bit 7
 #define     LOG_UserFormula1ActiveMask 0x80
 #define     LOG_UserFormula1ActiveShift 7
-#define LOG_UserFormula2                        564      // char*, 99 Byte
+#define LOG_UserFormula2                        479      // char*, 99 Byte
 #define     LOG_UserFormula2Length 99
-#define LOG_UserFormula2Active                  663      // 1 Bit, Bit 7
+#define LOG_UserFormula2Active                  578      // 1 Bit, Bit 7
 #define     LOG_UserFormula2ActiveMask 0x80
 #define     LOG_UserFormula2ActiveShift 7
-#define LOG_UserFormula3                        664      // char*, 99 Byte
+#define LOG_UserFormula3                        579      // char*, 99 Byte
 #define     LOG_UserFormula3Length 99
-#define LOG_UserFormula3Active                  763      // 1 Bit, Bit 7
+#define LOG_UserFormula3Active                  678      // 1 Bit, Bit 7
 #define     LOG_UserFormula3ActiveMask 0x80
 #define     LOG_UserFormula3ActiveShift 7
-#define LOG_UserFormula4                        764      // char*, 99 Byte
+#define LOG_UserFormula4                        679      // char*, 99 Byte
 #define     LOG_UserFormula4Length 99
-#define LOG_UserFormula4Active                  863      // 1 Bit, Bit 7
+#define LOG_UserFormula4Active                  778      // 1 Bit, Bit 7
 #define     LOG_UserFormula4ActiveMask 0x80
 #define     LOG_UserFormula4ActiveShift 7
-#define LOG_UserFormula5                        864      // char*, 99 Byte
+#define LOG_UserFormula5                        779      // char*, 99 Byte
 #define     LOG_UserFormula5Length 99
-#define LOG_UserFormula5Active                  963      // 1 Bit, Bit 7
+#define LOG_UserFormula5Active                  878      // 1 Bit, Bit 7
 #define     LOG_UserFormula5ActiveMask 0x80
 #define     LOG_UserFormula5ActiveShift 7
-#define LOG_UserFormula6                        964      // char*, 99 Byte
+#define LOG_UserFormula6                        879      // char*, 99 Byte
 #define     LOG_UserFormula6Length 99
-#define LOG_UserFormula6Active                  1063      // 1 Bit, Bit 7
+#define LOG_UserFormula6Active                  978      // 1 Bit, Bit 7
 #define     LOG_UserFormula6ActiveMask 0x80
 #define     LOG_UserFormula6ActiveShift 7
-#define LOG_UserFormula7                        1064      // char*, 99 Byte
+#define LOG_UserFormula7                        979      // char*, 99 Byte
 #define     LOG_UserFormula7Length 99
-#define LOG_UserFormula7Active                  1163      // 1 Bit, Bit 7
+#define LOG_UserFormula7Active                  1078      // 1 Bit, Bit 7
 #define     LOG_UserFormula7ActiveMask 0x80
 #define     LOG_UserFormula7ActiveShift 7
-#define LOG_UserFormula8                        1164      // char*, 99 Byte
+#define LOG_UserFormula8                        1079      // char*, 99 Byte
 #define     LOG_UserFormula8Length 99
-#define LOG_UserFormula8Active                  1263      // 1 Bit, Bit 7
+#define LOG_UserFormula8Active                  1178      // 1 Bit, Bit 7
 #define     LOG_UserFormula8ActiveMask 0x80
 #define     LOG_UserFormula8ActiveShift 7
-#define LOG_UserFormula9                        1264      // char*, 99 Byte
+#define LOG_UserFormula9                        1179      // char*, 99 Byte
 #define     LOG_UserFormula9Length 99
-#define LOG_UserFormula9Active                  1363      // 1 Bit, Bit 7
+#define LOG_UserFormula9Active                  1278      // 1 Bit, Bit 7
 #define     LOG_UserFormula9ActiveMask 0x80
 #define     LOG_UserFormula9ActiveShift 7
-#define LOG_UserFormula10                       1364      // char*, 99 Byte
+#define LOG_UserFormula10                       1279      // char*, 99 Byte
 #define     LOG_UserFormula10Length 99
-#define LOG_UserFormula10Active                 1463      // 1 Bit, Bit 7
+#define LOG_UserFormula10Active                 1378      // 1 Bit, Bit 7
 #define     LOG_UserFormula10ActiveMask 0x80
 #define     LOG_UserFormula10ActiveShift 7
-#define LOG_UserFormula11                       1464      // char*, 99 Byte
+#define LOG_UserFormula11                       1379      // char*, 99 Byte
 #define     LOG_UserFormula11Length 99
-#define LOG_UserFormula11Active                 1563      // 1 Bit, Bit 7
+#define LOG_UserFormula11Active                 1478      // 1 Bit, Bit 7
 #define     LOG_UserFormula11ActiveMask 0x80
 #define     LOG_UserFormula11ActiveShift 7
-#define LOG_UserFormula12                       1564      // char*, 99 Byte
+#define LOG_UserFormula12                       1479      // char*, 99 Byte
 #define     LOG_UserFormula12Length 99
-#define LOG_UserFormula12Active                 1663      // 1 Bit, Bit 7
+#define LOG_UserFormula12Active                 1578      // 1 Bit, Bit 7
 #define     LOG_UserFormula12ActiveMask 0x80
 #define     LOG_UserFormula12ActiveShift 7
-#define LOG_UserFormula13                       1664      // char*, 99 Byte
+#define LOG_UserFormula13                       1579      // char*, 99 Byte
 #define     LOG_UserFormula13Length 99
-#define LOG_UserFormula13Active                 1763      // 1 Bit, Bit 7
+#define LOG_UserFormula13Active                 1678      // 1 Bit, Bit 7
 #define     LOG_UserFormula13ActiveMask 0x80
 #define     LOG_UserFormula13ActiveShift 7
-#define LOG_UserFormula14                       1764      // char*, 99 Byte
+#define LOG_UserFormula14                       1679      // char*, 99 Byte
 #define     LOG_UserFormula14Length 99
-#define LOG_UserFormula14Active                 1863      // 1 Bit, Bit 7
+#define LOG_UserFormula14Active                 1778      // 1 Bit, Bit 7
 #define     LOG_UserFormula14ActiveMask 0x80
 #define     LOG_UserFormula14ActiveShift 7
-#define LOG_UserFormula15                       1864      // char*, 99 Byte
+#define LOG_UserFormula15                       1779      // char*, 99 Byte
 #define     LOG_UserFormula15Length 99
-#define LOG_UserFormula15Active                 1963      // 1 Bit, Bit 7
+#define LOG_UserFormula15Active                 1878      // 1 Bit, Bit 7
 #define     LOG_UserFormula15ActiveMask 0x80
 #define     LOG_UserFormula15ActiveShift 7
-#define LOG_UserFormula16                       1964      // char*, 99 Byte
+#define LOG_UserFormula16                       1879      // char*, 99 Byte
 #define     LOG_UserFormula16Length 99
-#define LOG_UserFormula16Active                 2063      // 1 Bit, Bit 7
+#define LOG_UserFormula16Active                 1978      // 1 Bit, Bit 7
 #define     LOG_UserFormula16ActiveMask 0x80
 #define     LOG_UserFormula16ActiveShift 7
-#define LOG_UserFormula17                       2064      // char*, 99 Byte
+#define LOG_UserFormula17                       1979      // char*, 99 Byte
 #define     LOG_UserFormula17Length 99
-#define LOG_UserFormula17Active                 2163      // 1 Bit, Bit 7
+#define LOG_UserFormula17Active                 2078      // 1 Bit, Bit 7
 #define     LOG_UserFormula17ActiveMask 0x80
 #define     LOG_UserFormula17ActiveShift 7
-#define LOG_UserFormula18                       2164      // char*, 99 Byte
+#define LOG_UserFormula18                       2079      // char*, 99 Byte
 #define     LOG_UserFormula18Length 99
-#define LOG_UserFormula18Active                 2263      // 1 Bit, Bit 7
+#define LOG_UserFormula18Active                 2178      // 1 Bit, Bit 7
 #define     LOG_UserFormula18ActiveMask 0x80
 #define     LOG_UserFormula18ActiveShift 7
-#define LOG_UserFormula19                       2264      // char*, 99 Byte
+#define LOG_UserFormula19                       2179      // char*, 99 Byte
 #define     LOG_UserFormula19Length 99
-#define LOG_UserFormula19Active                 2363      // 1 Bit, Bit 7
+#define LOG_UserFormula19Active                 2278      // 1 Bit, Bit 7
 #define     LOG_UserFormula19ActiveMask 0x80
 #define     LOG_UserFormula19ActiveShift 7
-#define LOG_UserFormula20                       2364      // char*, 99 Byte
+#define LOG_UserFormula20                       2279      // char*, 99 Byte
 #define     LOG_UserFormula20Length 99
-#define LOG_UserFormula20Active                 2463      // 1 Bit, Bit 7
+#define LOG_UserFormula20Active                 2378      // 1 Bit, Bit 7
 #define     LOG_UserFormula20ActiveMask 0x80
 #define     LOG_UserFormula20ActiveShift 7
-#define LOG_UserFormula21                       2464      // char*, 99 Byte
+#define LOG_UserFormula21                       2379      // char*, 99 Byte
 #define     LOG_UserFormula21Length 99
-#define LOG_UserFormula21Active                 2563      // 1 Bit, Bit 7
+#define LOG_UserFormula21Active                 2478      // 1 Bit, Bit 7
 #define     LOG_UserFormula21ActiveMask 0x80
 #define     LOG_UserFormula21ActiveShift 7
-#define LOG_UserFormula22                       2564      // char*, 99 Byte
+#define LOG_UserFormula22                       2479      // char*, 99 Byte
 #define     LOG_UserFormula22Length 99
-#define LOG_UserFormula22Active                 2663      // 1 Bit, Bit 7
+#define LOG_UserFormula22Active                 2578      // 1 Bit, Bit 7
 #define     LOG_UserFormula22ActiveMask 0x80
 #define     LOG_UserFormula22ActiveShift 7
-#define LOG_UserFormula23                       2664      // char*, 99 Byte
+#define LOG_UserFormula23                       2579      // char*, 99 Byte
 #define     LOG_UserFormula23Length 99
-#define LOG_UserFormula23Active                 2763      // 1 Bit, Bit 7
+#define LOG_UserFormula23Active                 2678      // 1 Bit, Bit 7
 #define     LOG_UserFormula23ActiveMask 0x80
 #define     LOG_UserFormula23ActiveShift 7
-#define LOG_UserFormula24                       2764      // char*, 99 Byte
+#define LOG_UserFormula24                       2679      // char*, 99 Byte
 #define     LOG_UserFormula24Length 99
-#define LOG_UserFormula24Active                 2863      // 1 Bit, Bit 7
+#define LOG_UserFormula24Active                 2778      // 1 Bit, Bit 7
 #define     LOG_UserFormula24ActiveMask 0x80
 #define     LOG_UserFormula24ActiveShift 7
-#define LOG_UserFormula25                       2864      // char*, 99 Byte
+#define LOG_UserFormula25                       2779      // char*, 99 Byte
 #define     LOG_UserFormula25Length 99
-#define LOG_UserFormula25Active                 2963      // 1 Bit, Bit 7
+#define LOG_UserFormula25Active                 2878      // 1 Bit, Bit 7
 #define     LOG_UserFormula25ActiveMask 0x80
 #define     LOG_UserFormula25ActiveShift 7
-#define LOG_UserFormula26                       2964      // char*, 99 Byte
+#define LOG_UserFormula26                       2879      // char*, 99 Byte
 #define     LOG_UserFormula26Length 99
-#define LOG_UserFormula26Active                 3063      // 1 Bit, Bit 7
+#define LOG_UserFormula26Active                 2978      // 1 Bit, Bit 7
 #define     LOG_UserFormula26ActiveMask 0x80
 #define     LOG_UserFormula26ActiveShift 7
-#define LOG_UserFormula27                       3064      // char*, 99 Byte
+#define LOG_UserFormula27                       2979      // char*, 99 Byte
 #define     LOG_UserFormula27Length 99
-#define LOG_UserFormula27Active                 3163      // 1 Bit, Bit 7
+#define LOG_UserFormula27Active                 3078      // 1 Bit, Bit 7
 #define     LOG_UserFormula27ActiveMask 0x80
 #define     LOG_UserFormula27ActiveShift 7
-#define LOG_UserFormula28                       3164      // char*, 99 Byte
+#define LOG_UserFormula28                       3079      // char*, 99 Byte
 #define     LOG_UserFormula28Length 99
-#define LOG_UserFormula28Active                 3263      // 1 Bit, Bit 7
+#define LOG_UserFormula28Active                 3178      // 1 Bit, Bit 7
 #define     LOG_UserFormula28ActiveMask 0x80
 #define     LOG_UserFormula28ActiveShift 7
-#define LOG_UserFormula29                       3264      // char*, 99 Byte
+#define LOG_UserFormula29                       3179      // char*, 99 Byte
 #define     LOG_UserFormula29Length 99
-#define LOG_UserFormula29Active                 3363      // 1 Bit, Bit 7
+#define LOG_UserFormula29Active                 3278      // 1 Bit, Bit 7
 #define     LOG_UserFormula29ActiveMask 0x80
 #define     LOG_UserFormula29ActiveShift 7
-#define LOG_UserFormula30                       3364      // char*, 99 Byte
+#define LOG_UserFormula30                       3279      // char*, 99 Byte
 #define     LOG_UserFormula30Length 99
-#define LOG_UserFormula30Active                 3463      // 1 Bit, Bit 7
+#define LOG_UserFormula30Active                 3378      // 1 Bit, Bit 7
 #define     LOG_UserFormula30ActiveMask 0x80
 #define     LOG_UserFormula30ActiveShift 7
 
-// Akustischer Signalgeber vorhanden (Buzzer)?
-#define ParamLOG_BuzzerInstalled                     ((bool)(knx.paramByte(LOG_BuzzerInstalled) & LOG_BuzzerInstalledMask))
-// Optischer Signalgeber vorhanden (RGB-LED)?
-#define ParamLOG_LedInstalled                        ((bool)(knx.paramByte(LOG_LedInstalled) & LOG_LedInstalledMask))
+// Verfügbare Kanäle
+#define ParamLOG_VisibleChannels                     (knx.paramByte(LOG_VisibleChannels))
 // Urlaubsbehandlung aktivieren?
 #define ParamLOG_VacationKo                          ((bool)(knx.paramByte(LOG_VacationKo) & LOG_VacationKoMask))
 // Feiertage auf dem Bus verfügbar machen?
@@ -1080,16 +1140,6 @@
 #define ParamLOG_Totensonntag                        ((bool)(knx.paramByte(LOG_Totensonntag) & LOG_TotensonntagMask))
 // 35. Weltkindertag
 #define ParamLOG_Weltkindertag                       ((bool)(knx.paramByte(LOG_Weltkindertag) & LOG_WeltkindertagMask))
-// Frequenz für Buzzer (leise)
-#define ParamLOG_BuzzerSilent                        (knx.paramWord(LOG_BuzzerSilent))
-// Frequenz für Buzzer (normal)
-#define ParamLOG_BuzzerNormal                        (knx.paramWord(LOG_BuzzerNormal))
-// Frequenz für Buzzer (laut)
-#define ParamLOG_BuzzerLoud                          (knx.paramWord(LOG_BuzzerLoud))
-// Verfügbare Kanäle
-#define ParamLOG_VisibleChannels                     (knx.paramByte(LOG_VisibleChannels))
-// Lötpad A / B / C entspricht
-#define ParamLOG_LedMapping                          ((knx.paramByte(LOG_LedMapping) & LOG_LedMappingMask) >> LOG_LedMappingShift)
 // Formeldefinition
 #define ParamLOG_UserFormula1                        (knx.paramData(LOG_UserFormula1))
 #define ParamLOG_UserFormula1Str                     (knx.paramString(LOG_UserFormula1, LOG_UserFormula1Length))
@@ -1244,8 +1294,6 @@
 #define LOG_KoVacation 15
 #define LOG_KoHoliday1 16
 #define LOG_KoHoliday2 17
-#define LOG_KoLedLock 18
-#define LOG_KoBuzzerLock 19
 
 // Urlaub
 #define KoLOG_Vacation                            (knx.getGroupObject(LOG_KoVacation))
@@ -1253,16 +1301,12 @@
 #define KoLOG_Holiday1                            (knx.getGroupObject(LOG_KoHoliday1))
 // Welcher Feiertag ist morgen?
 #define KoLOG_Holiday2                            (knx.getGroupObject(LOG_KoHoliday2))
-// LED sperren
-#define KoLOG_LedLock                             (knx.getGroupObject(LOG_KoLedLock))
-// Buzzer sperren
-#define KoLOG_BuzzerLock                          (knx.getGroupObject(LOG_KoBuzzerLock))
 
 #define LOG_ChannelCount 10
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 3464
-#define LOG_ParamBlockSize 85
+#define LOG_ParamBlockOffset 3379
+#define LOG_ParamBlockSize 87
 #define LOG_ParamCalcIndex(index) (index + LOG_ParamBlockOffset + _channelIndex * LOG_ParamBlockSize)
 
 #define LOG_fChannelDelayBase                    0      // 2 Bits, Bit 7-6
@@ -1278,9 +1322,6 @@
 #define LOG_fDisable                             3      // 1 Bit, Bit 2
 #define     LOG_fDisableMask 0x04
 #define     LOG_fDisableShift 2
-#define LOG_fAlarm                               3      // 1 Bit, Bit 3
-#define     LOG_fAlarmMask 0x08
-#define     LOG_fAlarmShift 3
 #define LOG_fTGate                               3      // 1 Bit, Bit 4
 #define     LOG_fTGateMask 0x10
 #define     LOG_fTGateShift 4
@@ -1983,183 +2024,197 @@
 #define LOG_fI1AsTrigger                        36      // 1 Bit, Bit 3
 #define     LOG_fI1AsTriggerMask 0x08
 #define     LOG_fI1AsTriggerShift 3
+#define LOG_fI1InternalInputType                36      // 1 Bit, Bit 2
+#define     LOG_fI1InternalInputTypeMask 0x04
+#define     LOG_fI1InternalInputTypeShift 2
 #define LOG_fI1Function                         37      // uint8_t
 #define LOG_fI1FunctionRel                      37      // int8_t
-#define LOG_fI2                                 38      // 2 Bits, Bit 7-6
+#define LOG_fI1StatusLed                        37      // 16 Bits, Bit 15-0
+#define LOG_fI2                                 39      // 2 Bits, Bit 7-6
 #define     LOG_fI2Mask 0xC0
 #define     LOG_fI2Shift 6
-#define LOG_fI2Kind                             38      // 2 Bits, Bit 5-4
+#define LOG_fI2Kind                             39      // 2 Bits, Bit 5-4
 #define     LOG_fI2KindMask 0x30
 #define     LOG_fI2KindShift 4
-#define LOG_fI2AsTrigger                        38      // 1 Bit, Bit 3
+#define LOG_fI2AsTrigger                        39      // 1 Bit, Bit 3
 #define     LOG_fI2AsTriggerMask 0x08
 #define     LOG_fI2AsTriggerShift 3
-#define LOG_fI2Function                         39      // uint8_t
-#define LOG_fI2FunctionRel                      39      // int8_t
-#define LOG_fOStairtimeBase                     40      // 2 Bits, Bit 7-6
+#define LOG_fI2InternalInputType                39      // 1 Bit, Bit 2
+#define     LOG_fI2InternalInputTypeMask 0x04
+#define     LOG_fI2InternalInputTypeShift 2
+#define LOG_fI2Function                         40      // uint8_t
+#define LOG_fI2FunctionRel                      40      // int8_t
+#define LOG_fI2StatusLed                        40      // 16 Bits, Bit 15-0
+#define LOG_fOStairtimeBase                     42      // 2 Bits, Bit 7-6
 #define     LOG_fOStairtimeBaseMask 0xC0
 #define     LOG_fOStairtimeBaseShift 6
-#define LOG_fOStairtimeTime                     40      // 14 Bits, Bit 13-0
+#define LOG_fOStairtimeTime                     42      // 14 Bits, Bit 13-0
 #define     LOG_fOStairtimeTimeMask 0x3FFF
 #define     LOG_fOStairtimeTimeShift 0
-#define LOG_fOBlinkBase                         42      // 2 Bits, Bit 7-6
+#define LOG_fOBlinkBase                         44      // 2 Bits, Bit 7-6
 #define     LOG_fOBlinkBaseMask 0xC0
 #define     LOG_fOBlinkBaseShift 6
-#define LOG_fOBlinkTime                         42      // 14 Bits, Bit 13-0
+#define LOG_fOBlinkTime                         44      // 14 Bits, Bit 13-0
 #define     LOG_fOBlinkTimeMask 0x3FFF
 #define     LOG_fOBlinkTimeShift 0
-#define LOG_fODelayOnBase                       44      // 2 Bits, Bit 7-6
+#define LOG_fODelayOnBase                       46      // 2 Bits, Bit 7-6
 #define     LOG_fODelayOnBaseMask 0xC0
 #define     LOG_fODelayOnBaseShift 6
-#define LOG_fODelayOnTime                       44      // 14 Bits, Bit 13-0
+#define LOG_fODelayOnTime                       46      // 14 Bits, Bit 13-0
 #define     LOG_fODelayOnTimeMask 0x3FFF
 #define     LOG_fODelayOnTimeShift 0
-#define LOG_fODelayOffBase                      46      // 2 Bits, Bit 7-6
+#define LOG_fODelayOffBase                      48      // 2 Bits, Bit 7-6
 #define     LOG_fODelayOffBaseMask 0xC0
 #define     LOG_fODelayOffBaseShift 6
-#define LOG_fODelayOffTime                      46      // 14 Bits, Bit 13-0
+#define LOG_fODelayOffTime                      48      // 14 Bits, Bit 13-0
 #define     LOG_fODelayOffTimeMask 0x3FFF
 #define     LOG_fODelayOffTimeShift 0
-#define LOG_fORepeatOnBase                      48      // 2 Bits, Bit 7-6
+#define LOG_fORepeatOnBase                      50      // 2 Bits, Bit 7-6
 #define     LOG_fORepeatOnBaseMask 0xC0
 #define     LOG_fORepeatOnBaseShift 6
-#define LOG_fORepeatOnTime                      48      // 14 Bits, Bit 13-0
+#define LOG_fORepeatOnTime                      50      // 14 Bits, Bit 13-0
 #define     LOG_fORepeatOnTimeMask 0x3FFF
 #define     LOG_fORepeatOnTimeShift 0
-#define LOG_fORepeatOffBase                     50      // 2 Bits, Bit 7-6
+#define LOG_fORepeatOffBase                     52      // 2 Bits, Bit 7-6
 #define     LOG_fORepeatOffBaseMask 0xC0
 #define     LOG_fORepeatOffBaseShift 6
-#define LOG_fORepeatOffTime                     50      // 14 Bits, Bit 13-0
+#define LOG_fORepeatOffTime                     52      // 14 Bits, Bit 13-0
 #define     LOG_fORepeatOffTimeMask 0x3FFF
 #define     LOG_fORepeatOffTimeShift 0
-#define LOG_fODelay                             52      // 1 Bit, Bit 7
+#define LOG_fODelay                             54      // 1 Bit, Bit 7
 #define     LOG_fODelayMask 0x80
 #define     LOG_fODelayShift 7
-#define LOG_fODelayOnRepeat                     52      // 2 Bits, Bit 6-5
+#define LOG_fODelayOnRepeat                     54      // 2 Bits, Bit 6-5
 #define     LOG_fODelayOnRepeatMask 0x60
 #define     LOG_fODelayOnRepeatShift 5
-#define LOG_fODelayOnReset                      52      // 1 Bit, Bit 4
+#define LOG_fODelayOnReset                      54      // 1 Bit, Bit 4
 #define     LOG_fODelayOnResetMask 0x10
 #define     LOG_fODelayOnResetShift 4
-#define LOG_fODelayOffRepeat                    52      // 2 Bits, Bit 3-2
+#define LOG_fODelayOffRepeat                    54      // 2 Bits, Bit 3-2
 #define     LOG_fODelayOffRepeatMask 0x0C
 #define     LOG_fODelayOffRepeatShift 2
-#define LOG_fODelayOffReset                     52      // 1 Bit, Bit 1
+#define LOG_fODelayOffReset                     54      // 1 Bit, Bit 1
 #define     LOG_fODelayOffResetMask 0x02
 #define     LOG_fODelayOffResetShift 1
-#define LOG_fOStair                             52      // 1 Bit, Bit 0
+#define LOG_fOStair                             54      // 1 Bit, Bit 0
 #define     LOG_fOStairMask 0x01
 #define     LOG_fOStairShift 0
-#define LOG_fORetrigger                         53      // 1 Bit, Bit 7
+#define LOG_fORetrigger                         55      // 1 Bit, Bit 7
 #define     LOG_fORetriggerMask 0x80
 #define     LOG_fORetriggerShift 7
-#define LOG_fOStairOff                          53      // 1 Bit, Bit 6
+#define LOG_fOStairOff                          55      // 1 Bit, Bit 6
 #define     LOG_fOStairOffMask 0x40
 #define     LOG_fOStairOffShift 6
-#define LOG_fORepeat                            53      // 1 Bit, Bit 5
+#define LOG_fORepeat                            55      // 1 Bit, Bit 5
 #define     LOG_fORepeatMask 0x20
 #define     LOG_fORepeatShift 5
-#define LOG_fOOutputFilter                      53      // 2 Bits, Bit 4-3
+#define LOG_fOOutputFilter                      55      // 2 Bits, Bit 4-3
 #define     LOG_fOOutputFilterMask 0x18
 #define     LOG_fOOutputFilterShift 3
-#define LOG_fOSendOnChange                      53      // 1 Bit, Bit 2
+#define LOG_fOSendOnChange                      55      // 1 Bit, Bit 2
 #define     LOG_fOSendOnChangeMask 0x04
 #define     LOG_fOSendOnChangeShift 2
-#define LOG_fODpt                               54      // 8 Bits, Bit 7-0
-#define LOG_fOOn                                55      // 8 Bits, Bit 7-0
-#define LOG_fOOnBuzzer                          55      // 8 Bits, Bit 7-0
-#define LOG_fOOnLed                             55      // 8 Bits, Bit 7-0
-#define LOG_fOOnAll                             55      // 8 Bits, Bit 7-0
-#define LOG_fOOnTone                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt1                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt2                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt3Dir                         56      // 5 Bits, Bit 7-3
+#define LOG_fODpt                               56      // 8 Bits, Bit 7-0
+#define LOG_fOOnAll                             57      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt1                            58      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt2                            58      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt3Dir                         58      // 5 Bits, Bit 7-3
 #define     LOG_fOOnDpt3DirMask 0xF8
 #define     LOG_fOOnDpt3DirShift 3
-#define LOG_fOOnDpt3Dim                         56      // 3 Bits, Bit 2-0
+#define LOG_fOOnDpt3Dim                         58      // 3 Bits, Bit 2-0
 #define     LOG_fOOnDpt3DimMask 0x07
 #define     LOG_fOOnDpt3DimShift 0
-#define LOG_fOOnDpt5                            56      // uint8_t
-#define LOG_fOOnDpt5001                         56      // uint8_t
-#define LOG_fOOnDpt6                            56      // int8_t
-#define LOG_fOOnDpt7                            56      // uint16_t
-#define LOG_fOOnDpt8                            56      // int16_t
-#define LOG_fOOnDpt9                            56      // float
-#define LOG_fOOnDpt12                           56      // uint32_t
-#define LOG_fOOnDpt13                           56      // int32_t
-#define LOG_fOOnDpt14                           56      // float
-#define LOG_fOOnDpt16                           56      // char*, 14 Byte
+#define LOG_fOOnDpt5                            58      // uint8_t
+#define LOG_fOOnDpt5001                         58      // uint8_t
+#define LOG_fOOnDpt6                            58      // int8_t
+#define LOG_fOOnDpt7                            58      // uint16_t
+#define LOG_fOOnDpt8                            58      // int16_t
+#define LOG_fOOnDpt9                            58      // float
+#define LOG_fOOnDpt12                           58      // uint32_t
+#define LOG_fOOnDpt13                           58      // int32_t
+#define LOG_fOOnDpt14                           58      // float
+#define LOG_fOOnDpt16                           58      // char*, 14 Byte
 #define     LOG_fOOnDpt16Length 14
-#define LOG_fOOnDpt17                           56      // 8 Bits, Bit 7-0
-#define LOG_fOOnRGB                             56      // 24 Bits, Bit 31-8
+#define LOG_fOOnDpt17                           58      // 8 Bits, Bit 7-0
+#define LOG_fOOnRGB                             58      // 24 Bits, Bit 31-8
 #define     LOG_fOOnRGBMask 0xFFFFFF00
 #define     LOG_fOOnRGBShift 8
-#define LOG_fOOnPAArea                          56      // 4 Bits, Bit 7-4
+#define LOG_fOOnLedProvider                     62      // 3 Bits, Bit 2-0
+#define     LOG_fOOnLedProviderMask 0x07
+#define     LOG_fOOnLedProviderShift 0
+#define LOG_fOOnLedEffect                       63      // 3 Bits, Bit 2-0
+#define     LOG_fOOnLedEffectMask 0x07
+#define     LOG_fOOnLedEffectShift 0
+#define LOG_fOOnLedDuration                     64      // uint16_t
+#define LOG_fOOnPAArea                          58      // 4 Bits, Bit 7-4
 #define     LOG_fOOnPAAreaMask 0xF0
 #define     LOG_fOOnPAAreaShift 4
-#define LOG_fOOnPALine                          56      // 4 Bits, Bit 3-0
+#define LOG_fOOnPALine                          58      // 4 Bits, Bit 3-0
 #define     LOG_fOOnPALineMask 0x0F
 #define     LOG_fOOnPALineShift 0
-#define LOG_fOOnPADevice                        57      // uint8_t
-#define LOG_fOOnFunction                        56      // 8 Bits, Bit 7-0
-#define LOG_fOOnKOKind                          61      // 2 Bits, Bit 7-6
+#define LOG_fOOnPADevice                        59      // uint8_t
+#define LOG_fOOnFunction                        58      // 8 Bits, Bit 7-0
+#define LOG_fOOnKOKind                          63      // 2 Bits, Bit 7-6
 #define     LOG_fOOnKOKindMask 0xC0
 #define     LOG_fOOnKOKindShift 6
-#define LOG_fOOnKONumber                        56      // uint16_t
-#define LOG_fOOnKONumberRel                     56      // int16_t
-#define LOG_fOOnKODpt                           58      // 8 Bits, Bit 7-0
-#define LOG_fOOnKOSend                          61      // 2 Bits, Bit 5-4
+#define LOG_fOOnKONumber                        58      // uint16_t
+#define LOG_fOOnKONumberRel                     58      // int16_t
+#define LOG_fOOnKODpt                           60      // 8 Bits, Bit 7-0
+#define LOG_fOOnKOSend                          63      // 2 Bits, Bit 5-4
 #define     LOG_fOOnKOSendMask 0x30
 #define     LOG_fOOnKOSendShift 4
-#define LOG_fOOnKOSendNumber                    62      // uint16_t
-#define LOG_fOOnKOSendNumberRel                 62      // int16_t
-#define LOG_fOOff                               70      // 8 Bits, Bit 7-0
-#define LOG_fOOffBuzzer                         70      // 8 Bits, Bit 7-0
-#define LOG_fOOffLed                            70      // 8 Bits, Bit 7-0
-#define LOG_fOOffAll                            70      // 8 Bits, Bit 7-0
-#define LOG_fOOffTone                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt1                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt2                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt3Dir                        71      // 5 Bits, Bit 7-3
+#define LOG_fOOnKOSendNumber                    64      // uint16_t
+#define LOG_fOOnKOSendNumberRel                 64      // int16_t
+#define LOG_fOOffAll                            72      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt1                           73      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt2                           73      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt3Dir                        73      // 5 Bits, Bit 7-3
 #define     LOG_fOOffDpt3DirMask 0xF8
 #define     LOG_fOOffDpt3DirShift 3
-#define LOG_fOOffDpt3Dim                        71      // 3 Bits, Bit 2-0
+#define LOG_fOOffDpt3Dim                        73      // 3 Bits, Bit 2-0
 #define     LOG_fOOffDpt3DimMask 0x07
 #define     LOG_fOOffDpt3DimShift 0
-#define LOG_fOOffDpt5                           71      // uint8_t
-#define LOG_fOOffDpt5001                        71      // uint8_t
-#define LOG_fOOffDpt6                           71      // int8_t
-#define LOG_fOOffDpt7                           71      // uint16_t
-#define LOG_fOOffDpt8                           71      // int16_t
-#define LOG_fOOffDpt9                           71      // float
-#define LOG_fOOffDpt12                          71      // uint32_t
-#define LOG_fOOffDpt13                          71      // int32_t
-#define LOG_fOOffDpt14                          71      // float
-#define LOG_fOOffDpt16                          71      // char*, 14 Byte
+#define LOG_fOOffDpt5                           73      // uint8_t
+#define LOG_fOOffDpt5001                        73      // uint8_t
+#define LOG_fOOffDpt6                           73      // int8_t
+#define LOG_fOOffDpt7                           73      // uint16_t
+#define LOG_fOOffDpt8                           73      // int16_t
+#define LOG_fOOffDpt9                           73      // float
+#define LOG_fOOffDpt12                          73      // uint32_t
+#define LOG_fOOffDpt13                          73      // int32_t
+#define LOG_fOOffDpt14                          73      // float
+#define LOG_fOOffDpt16                          73      // char*, 14 Byte
 #define     LOG_fOOffDpt16Length 14
-#define LOG_fOOffDpt17                          71      // 8 Bits, Bit 7-0
-#define LOG_fOOffRGB                            71      // 24 Bits, Bit 31-8
+#define LOG_fOOffDpt17                          73      // 8 Bits, Bit 7-0
+#define LOG_fOOffRGB                            73      // 24 Bits, Bit 31-8
 #define     LOG_fOOffRGBMask 0xFFFFFF00
 #define     LOG_fOOffRGBShift 8
-#define LOG_fOOffPAArea                         71      // 4 Bits, Bit 7-4
+#define LOG_fOOffLedProvider                    77      // 3 Bits, Bit 2-0
+#define     LOG_fOOffLedProviderMask 0x07
+#define     LOG_fOOffLedProviderShift 0
+#define LOG_fOOffLedEffect                      78      // 3 Bits, Bit 2-0
+#define     LOG_fOOffLedEffectMask 0x07
+#define     LOG_fOOffLedEffectShift 0
+#define LOG_fOOffLedDuration                    79      // uint16_t
+#define LOG_fOOffPAArea                         73      // 4 Bits, Bit 7-4
 #define     LOG_fOOffPAAreaMask 0xF0
 #define     LOG_fOOffPAAreaShift 4
-#define LOG_fOOffPALine                         71      // 4 Bits, Bit 3-0
+#define LOG_fOOffPALine                         73      // 4 Bits, Bit 3-0
 #define     LOG_fOOffPALineMask 0x0F
 #define     LOG_fOOffPALineShift 0
-#define LOG_fOOffPADevice                       72      // uint8_t
-#define LOG_fOOffFunction                       71      // 8 Bits, Bit 7-0
-#define LOG_fOOffKOKind                         76      // 2 Bits, Bit 7-6
+#define LOG_fOOffPADevice                       74      // uint8_t
+#define LOG_fOOffFunction                       73      // 8 Bits, Bit 7-0
+#define LOG_fOOffKOKind                         78      // 2 Bits, Bit 7-6
 #define     LOG_fOOffKOKindMask 0xC0
 #define     LOG_fOOffKOKindShift 6
-#define LOG_fOOffKONumber                       71      // uint16_t
-#define LOG_fOOffKONumberRel                    71      // int16_t
-#define LOG_fOOffKODpt                          73      // 8 Bits, Bit 7-0
-#define LOG_fOOffKOSend                         76      // 2 Bits, Bit 5-4
+#define LOG_fOOffKONumber                       73      // uint16_t
+#define LOG_fOOffKONumberRel                    73      // int16_t
+#define LOG_fOOffKODpt                          75      // 8 Bits, Bit 7-0
+#define LOG_fOOffKOSend                         78      // 2 Bits, Bit 5-4
 #define     LOG_fOOffKOSendMask 0x30
 #define     LOG_fOOffKOSendShift 4
-#define LOG_fOOffKOSendNumber                   77      // uint16_t
-#define LOG_fOOffKOSendNumberRel                77      // int16_t
+#define LOG_fOOffKOSendNumber                   79      // uint16_t
+#define LOG_fOOffKOSendNumberRel                79      // int16_t
 
 // Zeit bis der Kanal nach einem Neustart aktiv wird
 #define ParamLOG_fChannelDelayBase                   ((knx.paramByte(LOG_ParamCalcIndex(LOG_fChannelDelayBase)) & LOG_fChannelDelayBaseMask) >> LOG_fChannelDelayBaseShift)
@@ -2173,8 +2228,6 @@
 #define ParamLOG_fCalculate                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fCalculate)) & LOG_fCalculateMask)
 // Kanal deaktivieren (zu Testzwecken)
 #define ParamLOG_fDisable                            ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fDisable)) & LOG_fDisableMask))
-// Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?
-#define ParamLOG_fAlarm                              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fAlarm)) & LOG_fAlarmMask))
 // Tor geht sofort wieder zu
 #define ParamLOG_fTGate                              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTGate)) & LOG_fTGateMask))
 // Wert EIN intern weiterleiten
@@ -2895,20 +2948,28 @@
 #define ParamLOG_fI1Kind                             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI1Kind)) & LOG_fI1KindMask) >> LOG_fI1KindShift)
 // Internen Eingang als Trigger nutzen(ist immer logisch EIN)
 #define ParamLOG_fI1AsTrigger                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI1AsTrigger)) & LOG_fI1AsTriggerMask))
+// Interner Eingang wird versorgt vom
+#define ParamLOG_fI1InternalInputType                ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI1InternalInputType)) & LOG_fI1InternalInputTypeMask))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI1Function                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fI1Function)))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI1FunctionRel                      ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fI1FunctionRel)))
+// Statuskanal
+#define ParamLOG_fI1StatusLed                        (knx.paramWord(LOG_ParamCalcIndex(LOG_fI1StatusLed)))
 // Interner Eingang 4
 #define ParamLOG_fI2                                 ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI2)) & LOG_fI2Mask) >> LOG_fI2Shift)
 // Art der Verknüpfung
 #define ParamLOG_fI2Kind                             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI2Kind)) & LOG_fI2KindMask) >> LOG_fI2KindShift)
 // Internen Eingang als Trigger nutzen(ist immer logisch EIN)
 #define ParamLOG_fI2AsTrigger                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI2AsTrigger)) & LOG_fI2AsTriggerMask))
+// Interner Eingang wird versorgt vom
+#define ParamLOG_fI2InternalInputType                ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI2InternalInputType)) & LOG_fI2InternalInputTypeMask))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI2Function                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fI2Function)))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI2FunctionRel                      ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fI2FunctionRel)))
+// Statuskanal
+#define ParamLOG_fI2StatusLed                        (knx.paramWord(LOG_ParamCalcIndex(LOG_fI2StatusLed)))
 // Zeit für Treppenlicht
 #define ParamLOG_fOStairtimeBase                     ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOStairtimeBase)) & LOG_fOStairtimeBaseMask) >> LOG_fOStairtimeBaseShift)
 // Zeit für Treppenlicht
@@ -2970,15 +3031,7 @@
 // DPT für Ausgang
 #define ParamLOG_fODpt                               (knx.paramByte(LOG_ParamCalcIndex(LOG_fODpt)))
 // Wert für EIN senden?
-#define ParamLOG_fOOn                                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOn)))
-// Wert für EIN senden?
-#define ParamLOG_fOOnBuzzer                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnBuzzer)))
-// Wert für EIN senden?
-#define ParamLOG_fOOnLed                             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLed)))
-// Wert für EIN senden?
 #define ParamLOG_fOOnAll                             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnAll)))
-//     Wert für EIN senden als
-#define ParamLOG_fOOnTone                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnTone)))
 //     Wert für EIN senden als
 #define ParamLOG_fOOnDpt1                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt1)))
 //     Wert für EIN senden als
@@ -3012,6 +3065,12 @@
 #define ParamLOG_fOOnDpt17                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt17)))
 //     Wert für EIN senden als (3-Byte-RGB)
 #define ParamLOG_fOOnRGB                             ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnRGB)) & LOG_fOOnRGBMask) >> LOG_fOOnRGBShift)
+//     Status-LED Kanal
+#define ParamLOG_fOOnLedProvider                     (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLedProvider)) & LOG_fOOnLedProviderMask)
+//     Status-LED Effekt
+#define ParamLOG_fOOnLedEffect                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLedEffect)) & LOG_fOOnLedEffectMask)
+//     Status-LED Effektdauer
+#define ParamLOG_fOOnLedDuration                     (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnLedDuration)))
 // 
 #define ParamLOG_fOOnPAArea                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPAArea)) & LOG_fOOnPAAreaMask) >> LOG_fOOnPAAreaShift)
 // 
@@ -3035,15 +3094,7 @@
 //         Nummer des zusätzlichen KO
 #define ParamLOG_fOOnKOSendNumberRel                 ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnKOSendNumberRel)))
 // Wert für AUS senden?
-#define ParamLOG_fOOff                               (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOff)))
-// Wert für AUS senden?
-#define ParamLOG_fOOffBuzzer                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffBuzzer)))
-// Wert für AUS senden?
-#define ParamLOG_fOOffLed                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLed)))
-// Wert für AUS senden?
 #define ParamLOG_fOOffAll                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffAll)))
-//     Wert für AUS senden als
-#define ParamLOG_fOOffTone                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffTone)))
 //     Wert für AUS senden als
 #define ParamLOG_fOOffDpt1                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt1)))
 //     Wert für AUS senden als
@@ -3077,6 +3128,12 @@
 #define ParamLOG_fOOffDpt17                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt17)))
 //     Wert für AUS senden als (3-Byte-RGB)
 #define ParamLOG_fOOffRGB                            ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffRGB)) & LOG_fOOffRGBMask) >> LOG_fOOffRGBShift)
+//     Status-LED-Kanal
+#define ParamLOG_fOOffLedProvider                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLedProvider)) & LOG_fOOffLedProviderMask)
+//     Status-LED Effekt
+#define ParamLOG_fOOffLedEffect                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLedEffect)) & LOG_fOOffLedEffectMask)
+//     Status-LED Effektdauer
+#define ParamLOG_fOOffLedDuration                    (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffLedDuration)))
 // 
 #define ParamLOG_fOOffPAArea                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPAArea)) & LOG_fOOffPAAreaMask) >> LOG_fOOffPAAreaShift)
 // 
@@ -3122,8 +3179,8 @@
 // Ausgang
 #define KoLOG_KOfO                                (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
 
-#define DFA_VisibleChannels                     4314      // uint8_t
-#define DFA_DiagnoseAccess                      4315      // 1 Bit, Bit 7
+#define DFA_VisibleChannels                     4249      // uint8_t
+#define DFA_DiagnoseAccess                      4250      // 1 Bit, Bit 7
 #define     DFA_DiagnoseAccessMask 0x80
 #define     DFA_DiagnoseAccessShift 7
 
@@ -3132,10 +3189,10 @@
 // Zugriff über Diagnose-Objekt
 #define ParamDFA_DiagnoseAccess                      ((bool)(knx.paramByte(DFA_DiagnoseAccess) & DFA_DiagnoseAccessMask))
 
-#define DFA_ChannelCount 2
+#define DFA_ChannelCount 7
 
 // Parameter per channel
-#define DFA_ParamBlockOffset 4316
+#define DFA_ParamBlockOffset 4251
 #define DFA_ParamBlockSize 790
 #define DFA_ParamCalcIndex(index) (index + DFA_ParamBlockOffset + _channelIndex * DFA_ParamBlockSize)
 
@@ -7210,7 +7267,7 @@
 #define BASE_KommentarModuleModuleParamSize 0
 #define BASE_KommentarModuleSubmodulesParamSize 0
 #define BASE_KommentarModuleParamSize 0
-#define BASE_KommentarModuleParamOffset 5896
+#define BASE_KommentarModuleParamOffset 9781
 #define BASE_KommentarModuleCalcIndex(index, m1) (index + BASE_KommentarModuleParamOffset + _channelIndex * BASE_KommentarModuleCount * BASE_KommentarModuleParamSize + m1 * BASE_KommentarModuleParamSize)
 
 

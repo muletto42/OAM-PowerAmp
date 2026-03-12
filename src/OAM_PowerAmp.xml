@@ -9,14 +9,14 @@
 
   <op:config href="OAM_PowerAmp.conf.xml" />
   
-  <op:config name="%DFA_NumChannels%"        value="2" />
+  <op:config name="%DFA_NumChannels%"        value="7" />
   <op:config name="%LOG_NumChannels%"        value="10" /> 
   <op:config name="%SWA_NumChannels%"        value="2" /> 
   <op:config name="%AMP_NumChannels%"        value="2" />
 
   <op:ETS OpenKnxId="0xAF"
     ApplicationNumber="42"
-    ApplicationVersion="0.5"
+    ApplicationVersion="0.2"
     ReplacesVersions="0.0"
     ApplicationRevision="0.1"
     ProductName="PowerAmp"  

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer">
   
-  <op:config name="%AMP_ApplicationVersion%"  value="0.5" />
+  <op:config name="%AMP_ApplicationVersion%"  value="0.1" />
   <op:config name="%AMP_ReplacesVersions%"    value="0.0" />
 
   <op:config name="%DFA_NumChannelsDefault%"  value="2" />
@@ -9,10 +9,10 @@
   <op:config name="%SWA_NumChannelsDefault%"  value="2" />
   <op:config name="%AMP_NumChannelsDefault%"  value="2" />
 
-  <op:config name="%BASE_VerifyVersion%"  value="1.5" /> 
+  <op:config name="%BASE_VerifyVersion%"  value="1.7" /> 
   <op:config name="%SWA_VerifyVersion%"   value="0.1" />
-  <op:config name="%UCT_VerifyVersion%"   value="0.4" />
+  <op:config name="%UCT_VerifyVersion%"   value="0.5" />
   <op:config name="%DFA_VerifyVersion%"   value="0.7" />
-  <op:config name="%LOG_VerifyVersion%"   value="3.8" />
+  <op:config name="%LOG_VerifyVersion%"   value="4.0" />
 
 </KNX>
