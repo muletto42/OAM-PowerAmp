@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAIN_Version "30e3b5b"
+#define MAIN_Version "c997010"
 #define KNX_Version "2.3.1+7124a64"
 #define MODULE_DFA_Version "0.7.1+d9ccb83"
 #define MODULE_DFA_Version_Major 0
@@ -22,7 +22,7 @@
 #define MODULE_FileTransferModule_Version_Minor 1
 #define MODULE_FileTransferModule_Version_Revision 5
 #define MODULE_FileTransferModule_ETS 1
-#define MODULE_PowerAmp_Version "3a76f15"
+#define MODULE_PowerAmp_Version "e65d120"
 #define MODULE_SwitchActuator_Version "0.1.0+7d4ec51"
 #define MODULE_SwitchActuator_Version_Major 0
 #define MODULE_SwitchActuator_Version_Minor 1
