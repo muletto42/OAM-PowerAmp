@@ -4,7 +4,7 @@ eca6977 v1 lib/OFM-ConfigTransfer https://github.com/OpenKNX/OFM-ConfigTransfer.
 d9ccb83 v1 lib/OFM-DFA https://github.com/OpenKNX/OFM-DFA.git
 178f186 v1 lib/OFM-FileTransferModule https://github.com/OpenKNX/OFM-FileTransferModule.git
 2bc2557 v1 lib/OFM-LogicModule https://github.com/OpenKNX/OFM-LogicModule.git
-c983120 v1dev lib/OFM-PowerAmp https://github.com/muletto42/OFM-PowerAmp.git
+41fd672 v1dev lib/OFM-PowerAmp https://github.com/muletto42/OFM-PowerAmp.git
 7d4ec51 main lib/OFM-SwitchActuator https://github.com/OpenKNX/OFM-SwitchActuator
 55119fc v1 lib/OFM-UsbExchange https://github.com/OpenKNX/OFM-UsbExchange.git
 86dc82b v1 lib/OGM-Common https://github.com/OpenKNX/OGM-Common.git

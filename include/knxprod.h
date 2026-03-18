@@ -18,7 +18,7 @@
 #define MAIN_FirmwareName "PowerAmp(dev)"
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 42
-#define MAIN_ApplicationVersion 1
+#define MAIN_ApplicationVersion 2
 #define MAIN_ApplicationEncoding iso-8859-15
 #define MAIN_ParameterSize 9781
 #define MAIN_MaxKoNumber 509
